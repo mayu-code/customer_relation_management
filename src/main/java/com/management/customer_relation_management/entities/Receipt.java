@@ -26,4 +26,5 @@ public class Receipt {
     private String sender;
 
     private String towards;
+
 }
