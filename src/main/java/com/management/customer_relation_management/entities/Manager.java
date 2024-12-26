@@ -22,7 +22,8 @@ import jakarta.persistence.OneToMany;
 import lombok.Data;
 
 @Entity
-public class Manager {
+@Data
+public class Manager implements UserDetails {
     
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
