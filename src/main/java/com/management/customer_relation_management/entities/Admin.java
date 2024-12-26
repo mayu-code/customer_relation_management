@@ -27,17 +27,9 @@ public class Admin implements UserDetails{
     private String name;
     private String cantact;
     private String password;
-    private Roles role=Roles.ADMIN;
+    private Roles role = Roles.ADMIN;
     private String registationDate;
     private String loginDate;
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(this.role.toString()));
-    }
-    @Override
-    public String getUsername() {
-        return this.email;
-    }
 
     
 }
