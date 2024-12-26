@@ -28,10 +28,4 @@ public class Receipt {
     private String sender;
 
     private String towards;
-
-    private String managerName;
-
-    @JsonIgnore
-    @ManyToOne
-    private RegistrationForm registrationForm;
 }

@@ -34,6 +34,7 @@ public class Admin implements UserDetails{
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.toString()));
     }
+    
     @Override
     public String getUsername() {
         return this.email;
