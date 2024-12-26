@@ -28,4 +28,8 @@ public class Receipt {
     private String sender;
 
     private String towards;
+
+    @JsonIgnore
+    @ManyToOne
+    private RegistrationForm registrationForm;
 }
