@@ -19,9 +19,7 @@ public class Admin {
     private String name;
     private String cantact;
     private String password;
-    private Roles role=Roles.ADMIN;
+    private Roles role = Roles.ADMIN;
     private String registationDate;
     private String loginDate;
-
-    
 }
