@@ -24,7 +24,7 @@ import lombok.Data;
 @Entity
 @Data
 public class Manager implements UserDetails {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
@@ -35,10 +35,12 @@ public class Manager implements UserDetails {
     private Roles role = Roles.MANAGER;
     private String registationDate;
     private String loginDate;
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(this.role.toString()));
     }
+
     @Override
     public String getUsername() {
         return this.email;

@@ -41,7 +41,8 @@ public class EnquiryForm {
 
     private String qualifications;
 
-    private String registeredCources;
+    @OneToMany(mappedBy = "enquiryForm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Course> courseList = new ArrayList<>();
 
     @JsonIgnoreProperties("enquiryForm")
     @OneToMany(mappedBy = "enquiryForm", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)

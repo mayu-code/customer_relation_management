@@ -1,11 +1,13 @@
 package com.management.customer_relation_management.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.management.customer_relation_management.paymentType.PaymentType;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.SequenceGenerator;
 import lombok.Data;
 
@@ -26,4 +28,10 @@ public class Receipt {
     private String sender;
 
     private String towards;
+
+    private String managerName;
+
+    @JsonIgnore
+    @ManyToOne
+    private RegistrationForm registrationForm;
 }
