@@ -57,4 +57,7 @@ public class RegistrationForm {
     @JsonIgnoreProperties("registrations")
     @ManyToOne
     private Manager manager;
+
+    @OneToMany(mappedBy = "registrationForm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Receipt> receipts = new ArrayList<>();
 }

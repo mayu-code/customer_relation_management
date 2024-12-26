@@ -1,5 +1,7 @@
 package com.management.customer_relation_management.service.serviceImpl;
 
+import java.util.UUID;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +10,7 @@ import com.management.customer_relation_management.repository.AdminRepo;
 import com.management.customer_relation_management.service.serviceInterface.AdminService;
 
 @Service
-public class AdminServiceImpl implements AdminService{
+public class AdminServiceImpl implements AdminService {
 
     @Autowired
     AdminRepo adminRepo;
@@ -17,5 +19,15 @@ public class AdminServiceImpl implements AdminService{
     public Admin getAdminByEmail(String email) {
         return this.adminRepo.findByEmail(email);
     }
-    
+
+    @Override
+    public Admin saveAdmin(Admin admin) {
+        return this.adminRepo.save(admin);
+    }
+
+    @Override
+    public Admin getAdminById(UUID id) {
+        return this.adminRepo.findById(id).orElse(null);
+    }
+
 }
