@@ -10,6 +10,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 public class Manager {
@@ -25,8 +26,10 @@ public class Manager {
     private String registationDate;
     private String loginDate;
 
-    private List<EnquiryForm> equiries = new ArrayList<>();
+    // @OneToMany
+    // private List<EnquiryForm> equiries = new ArrayList<>();
 
-    private List<RegistrationForm> registration = new ArrayList<>();
+    // @OneToMany
+    // private List<RegistrationForm> registrations = new ArrayList<>();
 
 }
