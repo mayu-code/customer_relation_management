@@ -26,7 +26,7 @@ public class Receipt {
     private PaymentType paymentType = PaymentType.NOT_SELECTED;
 
     private String sender;
-
+    
     private String towards;
 
     @JsonIgnore
