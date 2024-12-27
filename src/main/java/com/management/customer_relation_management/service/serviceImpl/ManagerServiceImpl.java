@@ -5,6 +5,7 @@ import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.management.customer_relation_management.JwtSecurity.JwtProvider;
 import com.management.customer_relation_management.entities.Manager;
 import com.management.customer_relation_management.repository.ManagerRepo;
 import com.management.customer_relation_management.service.serviceInterface.ManagerService;
@@ -28,6 +29,13 @@ public class ManagerServiceImpl implements ManagerService {
     @Override
     public Manager getManagerById(UUID id) {
         return this.managerRepo.findById(id).orElse(null);
+    }
+
+    @Override
+    public Manager getManagerByJwt(String jwt) {
+        String email = JwtProvider.getEmailFromJwtToken(jwt);
+        Manager manager = this.managerRepo.findByEmail(email);
+        return manager;
     }
 
 }

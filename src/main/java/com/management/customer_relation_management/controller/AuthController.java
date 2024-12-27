@@ -14,6 +14,7 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -35,6 +36,7 @@ import com.management.customer_relation_management.service.serviceInterface.Admi
 
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = { "http://localhost:5173/", "http://localhost:5174/" })
 public class AuthController {
 
     @Autowired
@@ -56,7 +58,7 @@ public class AuthController {
 
         Admin a = this.adminServiceImpl.getAdminByEmail(adminRegisterRequest.getEmail());
 
-        if (a == null) {
+        if (a != null) {
             res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             res.setStatusCode(500);
             res.setMessage("Admin Already Exits");
@@ -96,7 +98,7 @@ public class AuthController {
 
         Manager m = this.managerServiceImpl.getManagerByEmail(registerRequest.getEmail());
 
-        if (m == null) {
+        if (m != null) {
             res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             res.setStatusCode(500);
             res.setMessage("manager Already Exits");
