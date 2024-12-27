@@ -56,7 +56,7 @@ public class AuthController {
 
         Admin a = this.adminServiceImpl.getAdminByEmail(adminRegisterRequest.getEmail());
 
-        if (a == null) {
+        if (a != null) {
             res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             res.setStatusCode(500);
             res.setMessage("Admin Already Exits");
@@ -96,7 +96,7 @@ public class AuthController {
 
         Manager m = this.managerServiceImpl.getManagerByEmail(registerRequest.getEmail());
 
-        if (m == null) {
+        if (m != null) {
             res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             res.setStatusCode(500);
             res.setMessage("manager Already Exits");
