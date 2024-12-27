@@ -11,4 +11,6 @@ public interface ManagerService {
     Manager saveManager(Manager manager);
 
     Manager getManagerById(UUID id);
+
+    Manager getManagerByJwt(String jwt);
 }

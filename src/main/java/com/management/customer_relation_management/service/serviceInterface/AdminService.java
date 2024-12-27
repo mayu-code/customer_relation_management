@@ -11,4 +11,6 @@ public interface AdminService {
     Admin saveAdmin(Admin admin);
 
     Admin getAdminById(UUID id);
+
+    Admin getAdminByJwt(String jwt);
 }
