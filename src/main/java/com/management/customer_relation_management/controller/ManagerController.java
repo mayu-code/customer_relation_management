@@ -1,5 +1,6 @@
 package com.management.customer_relation_management.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,18 +34,15 @@ public class ManagerController {
             res.setMessage("invalid token");
             res.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             res.setStatusCode(500);
-
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(res);
-
         }
-
         DataResponse res = new DataResponse();
         res.setMessage("Manager Fetch Successfully");
         res.setStatus(HttpStatus.OK);
         res.setData(manager);
         res.setStatusCode(200);
-
         return ResponseEntity.of(Optional.of(res));
-
     }
+
 }
+

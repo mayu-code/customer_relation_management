@@ -19,8 +19,10 @@ import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.SequenceGenerator;
+import lombok.Data;
 
 @Entity
+@Data
 public class RegistrationForm {
 
     @Id
@@ -40,23 +42,28 @@ public class RegistrationForm {
 
     private String branch;
 
-    private String knowAbout;
+    private String source;
 
-    private String qualifications;
-
-    @JsonIgnoreProperties("registrationForms")
-    @ManyToMany(mappedBy = "registrationForms", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private List<Course> registeredCourses = new ArrayList<>();
+    private String qualification;
 
     private long totalFees;
 
     private long amountPaid;
+
+    private int installmentsMonths;
+
+    private double installments;
+
+    private String deuDate;
 
     private PaymentType paymentType = PaymentType.NOT_SELECTED;
 
     @JsonIgnoreProperties("registrations")
     @ManyToOne
     private Manager manager;
+
+    @OneToMany(mappedBy = "registrationForm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Course> registeredCourses= new ArrayList<>();
 
     @OneToMany(mappedBy = "registrationForm", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<Receipt> receipts = new ArrayList<>();
