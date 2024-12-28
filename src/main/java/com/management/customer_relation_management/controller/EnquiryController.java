@@ -52,7 +52,7 @@ public class EnquiryController {
         EnquiryForm enquiryForm2 = new EnquiryForm();
         DataResponse response = new DataResponse();
         enquiryForm.setEnquiryDate(DateTimeFormatter.format(LocalDateTime.now()));
-        List<Course> courses = enquiryForm.getCourseList();
+        List<Course> courses = enquiryForm.getCourses();
         try{
             enquiryForm2 = this.EnquiryFormService.addEnquiryForm(enquiryForm, manager);
             for(Course course:courses){
@@ -78,7 +78,7 @@ public class EnquiryController {
     public ResponseEntity<DataResponse> updateEnquiry(@RequestBody EnquiryForm enquiryForm){
         EnquiryForm enquiryForm2 = new EnquiryForm();
         DataResponse response = new DataResponse();
-        List<Course> courses = enquiryForm.getCourseList();
+        List<Course> courses = enquiryForm.getCourses();
         try{
             enquiryForm2 = this.EnquiryFormService.updateEnquiryForm(enquiryForm);
             for(Course course:courses){

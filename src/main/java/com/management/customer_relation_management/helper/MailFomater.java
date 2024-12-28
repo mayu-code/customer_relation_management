@@ -30,8 +30,8 @@ public class MailFomater {
         emailContent.append("- Email: ").append(registrationForm.getEmail()).append("<br>");
         emailContent.append("- College: ").append(registrationForm.getCollege()).append("<br>");
         emailContent.append("- Branch: ").append(registrationForm.getBranch()).append("<br>");
-        emailContent.append("- Qualifications: ").append(registrationForm.getQualifications()).append("<br>");
-        emailContent.append("- Referred By: ").append(registrationForm.getKnowAbout()).append("<br><br>");
+        emailContent.append("- Qualifications: ").append(registrationForm.getQualification()).append("<br>");
+        emailContent.append("- Referred By: ").append(registrationForm.getSource()).append("<br><br>");
         
         emailContent.append("<b>Registered Courses:</b><br>");
         int i = 1;

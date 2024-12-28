@@ -42,13 +42,19 @@ public class RegistrationForm {
 
     private String branch;
 
-    private String knowAbout;
+    private String source;
 
-    private String qualifications;
+    private String qualification;
 
     private long totalFees;
 
     private long amountPaid;
+
+    private int installmentsMonths;
+
+    private double installments;
+
+    private String deuDate;
 
     private PaymentType paymentType = PaymentType.NOT_SELECTED;
 

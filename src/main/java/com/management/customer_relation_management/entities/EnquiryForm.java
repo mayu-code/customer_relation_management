@@ -39,12 +39,12 @@ public class EnquiryForm {
 
     private String branch;
 
-    private String knowAbout;
+    private String source;
 
-    private String qualifications;
+    private String qualification;
 
     @OneToMany(mappedBy = "enquiryForm", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private List<Course> courseList = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 
     @JsonIgnoreProperties("enquiryForm")
     @OneToMany(mappedBy = "enquiryForm", fetch = FetchType.LAZY, orphanRemoval = true, cascade = CascadeType.ALL)

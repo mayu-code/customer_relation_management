@@ -12,6 +12,6 @@ public interface EnquiryFormRepo extends JpaRepository<EnquiryForm,Long> {
     
     List<EnquiryForm> findByManager(Manager manager);
 
-    @Query("SELECT e FROM EnquiryForm e JOIN e.courseList c WHERE c.courseName = :courseName")
+    @Query("SELECT e FROM EnquiryForm e JOIN e.courses c WHERE c.courseName = :courseName")
     List<EnquiryForm> findByCourseName(String courseName);
 }
