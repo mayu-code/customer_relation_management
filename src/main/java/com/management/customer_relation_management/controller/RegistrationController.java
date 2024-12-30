@@ -3,6 +3,7 @@ package com.management.customer_relation_management.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,14 +55,14 @@ public class RegistrationController {
         try{
             registrationForm2 = this.registrationService.createRegistration(registrationForm, manager);
             for(Course course:courses){
-                System.out.println(course.toString());
                 courseService.addRegisterCourse(course, registrationForm2);
             }
             response.setStatus(HttpStatus.CREATED);
             response.setStatusCode(200);
             response.setMessage("Regitration Successfully !");
             response.setData(registrationForm2);
-            mailFomater.mail(registrationForm2.getId());
+            long id = registrationForm2.getId();
+            CompletableFuture.runAsync(() -> mailFomater.mail(id));
             return ResponseEntity.of(Optional.of(response));
         }
         catch(Exception e){

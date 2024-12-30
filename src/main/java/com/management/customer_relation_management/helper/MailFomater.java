@@ -1,12 +1,15 @@
 package com.management.customer_relation_management.helper;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.management.customer_relation_management.entities.Course;
 import com.management.customer_relation_management.entities.RegistrationForm;
 import com.management.customer_relation_management.service.serviceImpl.EmailServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.RegistrationServiceImpl;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class MailFomater {
@@ -38,23 +41,24 @@ public class MailFomater {
         for (Course course : registrationForm.getRegisteredCourses()) {
             emailContent.append(String.valueOf(i) + ". <b>Course Name:</b> ").append(course.getCourseName()).append("<br>");
             emailContent.append("   - <b>Duration:</b> ").append(course.getCourseDuration()).append("<br>");
-            emailContent.append("   - <b>Price:</b> Rs.").append(course.getPrice()).append("<br>");
+            emailContent.append("   - <b>Price:</b> Rs.").append(course.getPrice()).append("<br><br>");
             i++;
         }
         
-        emailContent.append("<br><b>Payment Information:</b><br>");
+        emailContent.append("<b>Payment Information:</b><br>");
         emailContent.append("- Total Fees: Rs.").append(registrationForm.getTotalFees()).append("<br>");
         emailContent.append("- Amount Paid: Rs.").append(registrationForm.getAmountPaid()).append("<br>");
         emailContent.append("- Payment Method: ").append(registrationForm.getPaymentType()).append("<br><br>");
     
         emailContent.append("We are excited to have you on board and look forward to helping you achieve your goals. If you have any questions or need assistance, feel free to contact us.<br><br>");
-        emailContent.append("Warm Regards,<br>[Your Organization Name]<br>");
+        emailContent.append("Warm Regards,<br>Gradient Infotech<br>");
     
         return emailContent.toString();
     }
     
     
-
+@Async("taskExecutor")
+@Transactional
 public void mail(long id){
     RegistrationForm registrationForm = this.registrationService.getRegistrationFormById(id);
     String body = generateRegistrationEmail(registrationForm);
