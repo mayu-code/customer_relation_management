@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.management.customer_relation_management.response.DataResponse;
 import com.management.customer_relation_management.service.serviceImpl.CourseServiceImpl;
+import com.management.customer_relation_management.service.serviceImpl.EnquiryFormServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.RegistrationServiceImpl;
 
 @RestController
@@ -21,6 +22,9 @@ public class ManagerHandler {
 
     @Autowired
     RegistrationServiceImpl registrationServiceImpl;
+
+    @Autowired
+    EnquiryFormServiceImpl enquiryFormServiceImpl;
 
     @Autowired
     CourseServiceImpl courseServiceImpl;
@@ -86,7 +90,61 @@ public class ManagerHandler {
             response.setData(this.courseServiceImpl.getDistinctCourse());
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
+            response.setMessage("get courses successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/getDistinctEnquiryCollege")
+    public ResponseEntity<DataResponse> getDistinctEnquiryCollege(){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.enquiryFormServiceImpl.getAllDistinctColleges());
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("get colleges successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/getDistinctEnquiryBranch")
+    public ResponseEntity<DataResponse> getDistinctEnquiryBranch(){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.enquiryFormServiceImpl.getAllDistinctBranch());
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
             response.setMessage("get branches successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/getDistinctQalification")
+    public ResponseEntity<DataResponse> getDistinctQualification(){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.courseServiceImpl.getDistinctCourse());
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("get qualifications successfully !");
             return ResponseEntity.of(Optional.of(response));
         }catch(Exception e){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
