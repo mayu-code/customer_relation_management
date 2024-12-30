@@ -141,7 +141,7 @@ public class ManagerHandler {
     public ResponseEntity<DataResponse> getDistinctQualification(){
         DataResponse response = new DataResponse();
         try{
-            response.setData(this.courseServiceImpl.getDistinctCourse());
+            response.setData(this.enquiryFormServiceImpl.getAllDistinctQualification());
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
             response.setMessage("get qualifications successfully !");
