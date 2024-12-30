@@ -159,6 +159,7 @@ public class EnquiryController {
     @PostMapping("/addEnquiryDetail/{id}")
     public ResponseEntity<DataResponse> addEnquiryDetail(@PathVariable("id")long id ,@RequestBody EnquiryDetail detail){
         DataResponse response = new DataResponse();
+        detail.setEnquiryDate(DateTimeFormatter.format(LocalDateTime.now()));
         EnquiryForm enquiryForm = this.EnquiryFormService.getEnquiryFormById(id);
         try{
             response.setData(this.enquiryDetailService.addEnquiryDetail(detail,enquiryForm ));

@@ -31,7 +31,7 @@ public class EnquiryDetailServiceImpl implements EnquiryDetailService{
 
     @Override
     public List<EnquiryDetail> getAllEnquiryDetailByEnquiryForm(long id) {
-        return this.getAllEnquiryDetailByEnquiryForm(id);
+        return this.detailRepo.findByEnquiryFormId(id);
     }
     
 }
