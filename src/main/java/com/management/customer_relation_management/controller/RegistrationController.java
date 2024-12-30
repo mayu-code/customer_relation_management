@@ -149,7 +149,7 @@ public class RegistrationController {
     }
 
     @GetMapping("/getRegistrationById/{id}")
-    public ResponseEntity<DataResponse> getRegistrationById(@PathVariable("id")long id){
+    public ResponseEntity<DataResponse> getRegistrationById(@RequestHeader("Authorization") String jwt,@PathVariable("id")long id){
         DataResponse response = new DataResponse();
         try{
             response.setData(this.registrationService.getRegistrationFormById(id));
@@ -166,8 +166,8 @@ public class RegistrationController {
         }
     }
 
-    @GetMapping("/serachRegistrationByName/{name}")
-    public ResponseEntity<DataResponse> searchRegistrationByName(@PathVariable("name")String name){
+    @GetMapping("/searchRegistrationByName/{name}")
+    public ResponseEntity<DataResponse> searchRegistrationByName(@RequestHeader("Authorization") String jwt,@PathVariable("name")String name){
         DataResponse response = new DataResponse();
         try{
             response.setData(this.registrationService.searchRegistrationFormByName(name));
@@ -184,8 +184,8 @@ public class RegistrationController {
         }
     }
 
-    @GetMapping("/serachRegistrationById/{id}")
-    public ResponseEntity<DataResponse> searchRegistrationById(@PathVariable("id")String id){
+    @GetMapping("/searchRegistrationById/{id}")
+    public ResponseEntity<DataResponse> searchRegistrationById(@RequestHeader("Authorization") String jwt,@PathVariable("id")String id){
         DataResponse response = new DataResponse();
         try{
             response.setData(this.registrationService.searchRegistrationFormById(id));
