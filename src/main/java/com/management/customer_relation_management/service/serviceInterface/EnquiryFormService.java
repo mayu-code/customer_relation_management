@@ -10,8 +10,15 @@ public interface EnquiryFormService {
     EnquiryForm addEnquiryForm(EnquiryForm enquiryForm,Manager manager);
     List<EnquiryForm> enquiryFormByManager(Manager manager);
     List<EnquiryForm> allEnquiryForms();
-    EnquiryForm updateEnquiryForm(EnquiryForm enquiryForm);
-    void deleteEnquiry(long id);
     EnquiryForm getEnquiryFormById(long id);
-    List<EnquiryForm> getEnquiryFormsByCourseName(String courseName);
+    EnquiryForm updateEnquiryForm(EnquiryForm enquiryForm);
+
+    void deleteEnquiry(long id);
+    
+    List<EnquiryForm> getEnquiryFormsByCourseName(String courseName,Manager manager);
+    List<EnquiryForm> searchBEnquiryFormById(String id,Manager manager);
+    List<EnquiryForm> searchBEnquiryFormByName(String name,Manager manager);
+    List<EnquiryForm> searchBEnquiryFormByBranch(String branch,Manager manager);
+    List<EnquiryForm> searchBEnquiryFormByCollege(String college,Manager manager);
+    List<EnquiryForm> searchBEnquiryFormByQualification(String quali,Manager manager);
 } 

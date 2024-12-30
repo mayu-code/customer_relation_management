@@ -49,8 +49,33 @@ public class EnquiryFormServiceImpl implements EnquiryFormService {
     }
 
     @Override
-    public List<EnquiryForm> getEnquiryFormsByCourseName(String courseName) {
-         return this.enquiryFormRepo.findByCourseName(courseName);
+    public List<EnquiryForm> getEnquiryFormsByCourseName(String courseName,Manager manager) {
+         return this.enquiryFormRepo.findByCourseName(courseName,manager);
     }
-    
+
+
+    @Override
+    public List<EnquiryForm> searchBEnquiryFormById(String id, Manager manager) {
+        return this.enquiryFormRepo.searchEnquiryFormsById(id, manager);
+    }
+
+    @Override
+    public List<EnquiryForm> searchBEnquiryFormByName(String name, Manager manager) {
+        return this.enquiryFormRepo.searchEnquiryFormByNameandEmail(name, manager);
+    }
+
+    @Override
+    public List<EnquiryForm> searchBEnquiryFormByBranch(String branch, Manager manager) {
+        return this.enquiryFormRepo.findByBranchAndManager(branch, manager);
+    }
+
+    @Override
+    public List<EnquiryForm> searchBEnquiryFormByCollege(String college, Manager manager) {
+        return this.enquiryFormRepo.findByCollegeAndManager(college, manager);
+    }
+
+    @Override
+    public List<EnquiryForm> searchBEnquiryFormByQualification(String quali, Manager manager) {
+        return this.enquiryFormRepo.findByQualificationAndManager(quali, manager);
+    }
 }

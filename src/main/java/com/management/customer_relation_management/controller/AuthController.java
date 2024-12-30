@@ -4,8 +4,6 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.security.core.Authentication;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,7 +11,6 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -32,7 +29,6 @@ import com.management.customer_relation_management.response.LoginResponse;
 import com.management.customer_relation_management.response.SuccessResponse;
 import com.management.customer_relation_management.service.serviceImpl.AdminServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.ManagerServiceImpl;
-import com.management.customer_relation_management.service.serviceInterface.AdminService;
 
 @RestController
 @RequestMapping("/auth")
@@ -233,11 +229,9 @@ public class AuthController {
     // authentication for user
     private Authentication userAuthenticate(String email, String password) {
         UserDetails details = managerCustomDetail.loadUserByUsername(email);
-
         if (details == null) {
             throw new BadCredentialsException("invalid manager");
         }
-
         return new UsernamePasswordAuthenticationToken(details, password, details.getAuthorities());
 
     }

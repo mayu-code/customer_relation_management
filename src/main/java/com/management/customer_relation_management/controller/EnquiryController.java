@@ -196,10 +196,106 @@ public class EnquiryController {
 
 
     @GetMapping("/getEnquiryByCourseName/{courseName}")
-    public ResponseEntity<DataResponse> getEnquiryFormByCourseName(@PathVariable("courseName") String course){
+    public ResponseEntity<DataResponse> getEnquiryFormByCourseName(@RequestHeader("Authorization")String jwt,@PathVariable("courseName") String course){
         DataResponse response = new DataResponse();
+        Manager manager = managerServiceImpl.getManagerByJwt(jwt);
         try{
-            response.setData(this.EnquiryFormService.getEnquiryFormsByCourseName(course));
+            response.setData(this.EnquiryFormService.getEnquiryFormsByCourseName(course,manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("Enquiry forms get successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/searchBEnquiryFormById/{id}")
+    public ResponseEntity<DataResponse> searchBEnquiryFormById(@RequestHeader("Authorization")String jwt,@PathVariable("id") String id){
+        DataResponse response = new DataResponse();
+        Manager manager = managerServiceImpl.getManagerByJwt(jwt);
+        try{
+            response.setData(this.EnquiryFormService.searchBEnquiryFormById(id, manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("Enquiry forms get successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/searchBEnquiryFormByName/{name}")
+    public ResponseEntity<DataResponse> searchBEnquiryFormByName(@RequestHeader("Authorization")String jwt,@PathVariable("name") String name){
+        DataResponse response = new DataResponse();
+        Manager manager = managerServiceImpl.getManagerByJwt(jwt);
+        try{
+            response.setData(this.EnquiryFormService.searchBEnquiryFormByName(name, manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("Enquiry forms get successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/searchBEnquiryFormByBranch/{branch}")
+    public ResponseEntity<DataResponse> searchBEnquiryFormByBranch(@RequestHeader("Authorization")String jwt,@PathVariable("branch") String branch){
+        DataResponse response = new DataResponse();
+        Manager manager = managerServiceImpl.getManagerByJwt(jwt);
+        try{
+            response.setData(this.EnquiryFormService.searchBEnquiryFormByBranch(branch, manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("Enquiry forms get successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/searchBEnquiryFormByCollege/{college}")
+    public ResponseEntity<DataResponse> searchBEnquiryFormByCollege(@RequestHeader("Authorization")String jwt,@PathVariable("college") String college){
+        DataResponse response = new DataResponse();
+        Manager manager = managerServiceImpl.getManagerByJwt(jwt);
+        try{
+            response.setData(this.EnquiryFormService.searchBEnquiryFormByCollege(college, manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("Enquiry forms get successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/searchBEnquiryFormByQualification/{quali}")
+    public ResponseEntity<DataResponse> searchBEnquiryFormByQualification(@RequestHeader("Authorization")String jwt,@PathVariable("quali") String quali){
+        DataResponse response = new DataResponse();
+        Manager manager = managerServiceImpl.getManagerByJwt(jwt);
+        try{
+            response.setData(this.EnquiryFormService.searchBEnquiryFormByQualification(quali,manager));
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
             response.setMessage("Enquiry forms get successfully !");
@@ -213,5 +309,5 @@ public class EnquiryController {
         }
     }
     
-    
+
 }

@@ -4,7 +4,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
-import com.management.customer_relation_management.entities.EnquiryForm;
 import com.management.customer_relation_management.entities.Manager;
 import com.management.customer_relation_management.entities.RegistrationForm;
 
@@ -17,14 +16,16 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
     List<RegistrationForm> findByBranchAndManager(String branch,Manager manager);
     List<RegistrationForm> findByQualificationAndManager(String qualification,Manager manager);
 
+
     @Query("SELECT r FROM RegistrationForm r JOIN r.registeredCourses c WHERE c.courseName = :courseName AND r.manager =:manager")
-    List<RegistrationForm> findByCourseName(String courseName,Manager manager);
+    List<RegistrationForm> findByCourseName(@Param("courseName")String courseName,@Param("manager")Manager manager);
 
     @Query("SELECT r FROM RegistrationForm r WHERE (r.name LIKE %:query% or r.email LIKE %:query% ) AND r.manager = :manager")
     List<RegistrationForm> searchRegistrationFormsByName(@Param("query") String query,@Param("manager") Manager Manager);
 
     @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.id AS string) LIKE %:query% AND r.manager = :manager")
     List<RegistrationForm> searchRegistrationFormsById(@Param("query") String query,@Param("manager") Manager manager);
+
 
     @Query("SELECT DISTINCT r.college FROM RegistrationForm r")
     List<String> findAllDistinctColleges();
