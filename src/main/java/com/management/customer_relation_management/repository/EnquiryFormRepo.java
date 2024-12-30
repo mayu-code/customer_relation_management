@@ -16,17 +16,19 @@ public interface EnquiryFormRepo extends JpaRepository<EnquiryForm,Long> {
     @Query("SELECT e FROM EnquiryForm e WHERE e.branch =:branch AND e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> findByBranchAndManager(String branch,Manager manager);
 
-    @Query("SELECT e FROM ")
+    @Query("SELECT e FROM EnquiryForm e WHERE e.branch =:branch AND e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> findByCollegeAndManager(String college,Manager manager);
+
+    @Query("SELECT e FROM EnquiryForm e WHERE e.qualification =:qualification AND e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> findByQualificationAndManager(String qualification,Manager manager);
 
-    @Query("SELECT e FROM EnquiryForm e JOIN e.courses c WHERE c.courseName = :courseName AND e.manager =:manager")
+    @Query("SELECT e FROM EnquiryForm e JOIN e.courses c WHERE c.courseName = :courseName AND e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> findByCourseName(@Param("courseName")String courseName,@Param("manager")Manager manager);
 
-    @Query("SELECT e FROM EnquiryForm e WHERE CAST(e.id AS string) LIKE %:id% AND e.manager =:manager")
+    @Query("SELECT e FROM EnquiryForm e WHERE CAST(e.id AS string) LIKE %:id% AND e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> searchEnquiryFormsById(@Param("id")String id,@Param("manager") Manager manager);
 
-    @Query("SELECT e FROM EnquiryForm e WHERE (e.name LIKE %:query% OR e.email LIKE %:query%) AND e.manager =:manager ")
+    @Query("SELECT e FROM EnquiryForm e WHERE (e.name LIKE %:query% OR e.email LIKE %:query%) AND e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> searchEnquiryFormByNameandEmail(@Param("query") String query , @Param("manager") Manager manager);
 
     @Query("SELECT DISTINCT r.college FROM EnquiryForm r")
