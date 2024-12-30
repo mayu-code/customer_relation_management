@@ -169,8 +169,9 @@ public class RegistrationController {
     @GetMapping("/searchRegistrationByName/{name}")
     public ResponseEntity<DataResponse> searchRegistrationByName(@RequestHeader("Authorization") String jwt,@PathVariable("name")String name){
         DataResponse response = new DataResponse();
+        Manager manager = this.managerService.getManagerByJwt(jwt);
         try{
-            response.setData(this.registrationService.searchRegistrationFormByName(name));
+            response.setData(this.registrationService.searchRegistrationFormByName(name,manager));
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
             response.setMessage("search successfully !");
@@ -187,8 +188,9 @@ public class RegistrationController {
     @GetMapping("/searchRegistrationById/{id}")
     public ResponseEntity<DataResponse> searchRegistrationById(@RequestHeader("Authorization") String jwt,@PathVariable("id")String id){
         DataResponse response = new DataResponse();
+        Manager manager = this.managerService.getManagerByJwt(jwt);
         try{
-            response.setData(this.registrationService.searchRegistrationFormById(id));
+            response.setData(this.registrationService.searchRegistrationFormById(id,manager));
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
             response.setMessage("search successfully !");
