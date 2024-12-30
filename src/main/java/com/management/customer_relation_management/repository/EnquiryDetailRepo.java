@@ -11,6 +11,6 @@ import com.management.customer_relation_management.entities.EnquiryDetail;
 
 public interface EnquiryDetailRepo extends JpaRepository<EnquiryDetail,Long> {
 
-    @Query("SELECT e FROM EnquiryDetail e WHERE e.enquiryForm.id =:id")
+    @Query("SELECT e FROM EnquiryDetail e WHERE e.enquiryForm.id =:id ORDER BY e.enquiryDate DESC")
     List<EnquiryDetail> findByEnquiryFormId(@Param("id")long id);
 }
