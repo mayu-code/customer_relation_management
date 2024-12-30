@@ -137,7 +137,7 @@ public class ManagerHandler {
         }
     }
 
-    @GetMapping("/getDistinctQalification")
+    @GetMapping("/getDistinctQualification")
     public ResponseEntity<DataResponse> getDistinctQualification(){
         DataResponse response = new DataResponse();
         try{
