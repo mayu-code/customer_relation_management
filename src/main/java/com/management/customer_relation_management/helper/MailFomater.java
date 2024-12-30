@@ -59,7 +59,6 @@ public void mail(long id){
     RegistrationForm registrationForm = this.registrationService.getRegistrationFormById(id);
     String body = generateRegistrationEmail(registrationForm);
     String subject = "Subject: Registration Successful! Welcome to Gradient Infotech";
-    
-    emailService.sendEmail(registrationForm.getEmail(), subject, body);
+    emailService.sendHtmlEmail(registrationForm.getEmail(), subject, body);
 }
 }

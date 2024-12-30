@@ -4,7 +4,6 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -157,7 +156,7 @@ public class EnquiryController {
     }
 
 
-    @PostMapping("/enquiryDetail/{id}")
+    @PostMapping("/addEnquiryDetail/{id}")
     public ResponseEntity<DataResponse> addEnquiryDetail(@PathVariable("id")long id ,@RequestBody EnquiryDetail detail){
         DataResponse response = new DataResponse();
         EnquiryForm enquiryForm = this.EnquiryFormService.getEnquiryFormById(id);
@@ -176,7 +175,7 @@ public class EnquiryController {
         }
     }
 
-    @PostMapping("/deleteDetail/{id}")
+    @PostMapping("/deleteEnquiryDetail/{id}")
     public ResponseEntity<DataResponse> deleteEnquiryDetail(@PathVariable("id")long id){
         DataResponse response = new DataResponse();
         try{
