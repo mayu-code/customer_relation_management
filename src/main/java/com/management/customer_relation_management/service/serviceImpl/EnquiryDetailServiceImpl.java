@@ -1,5 +1,7 @@
 package com.management.customer_relation_management.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class EnquiryDetailServiceImpl implements EnquiryDetailService{
     public void deleteEnquiryDetail(long id) {
         this.detailRepo.deleteById(id);
         return;
+    }
+
+    @Override
+    public List<EnquiryDetail> getAllEnquiryDetailByEnquiryForm(long id) {
+        return this.getAllEnquiryDetailByEnquiryForm(id);
     }
     
 }

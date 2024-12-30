@@ -175,6 +175,24 @@ public class EnquiryController {
         }
     }
 
+    @GetMapping("/getEnquiryDetail/{id}")
+    public ResponseEntity<DataResponse> getEnquiryDetail(@PathVariable("id")long id){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.enquiryDetailService.getAllEnquiryDetailByEnquiryForm(id));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("get enquiry details successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
     @PostMapping("/deleteEnquiryDetail/{id}")
     public ResponseEntity<DataResponse> deleteEnquiryDetail(@PathVariable("id")long id){
         DataResponse response = new DataResponse();
@@ -307,6 +325,5 @@ public class EnquiryController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-    
 
 }
