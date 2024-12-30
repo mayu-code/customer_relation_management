@@ -58,5 +58,20 @@ public class RegistrationServiceImpl implements RegistrationService {
         return this.registrationRepository.searchRegistrationFormsById(id,manager);
     }
 
+    @Override
+    public List<String> getAllDistinctColleges() {
+        return this.registrationRepository.findAllDistinctColleges();
+    }
+
+    @Override
+    public List<String> getAllDistinctQualification() {
+        return this.registrationRepository.findAllDistinctQualifications();
+    }
+
+    @Override
+    public List<String> getAllDistinctBranch() {
+        return this.registrationRepository.findAllDistinctBranch();
+    }
+
 
 }

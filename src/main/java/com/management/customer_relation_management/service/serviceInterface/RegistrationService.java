@@ -23,5 +23,9 @@ public interface RegistrationService {
 
     List<RegistrationForm> searchRegistrationFormById(String id,Manager manager);
 
+    List<String> getAllDistinctColleges();
+    List<String> getAllDistinctQualification();
+    List<String> getAllDistinctBranch();
+
     
 }

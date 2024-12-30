@@ -1,5 +1,7 @@
 package com.management.customer_relation_management.service.serviceImpl;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +27,11 @@ public class CourseServiceImpl implements CourseService{
     public Course addRegisterCourse(Course course, RegistrationForm registrationForm) {
          course.setRegistrationForm(registrationForm);
          return this.courseRepo.save(course);
+    }
+
+    @Override
+    public List<String> getDistinctCourse() {
+        return this.getDistinctCourse();
     }
     
 }
