@@ -78,4 +78,19 @@ public class EnquiryFormServiceImpl implements EnquiryFormService {
     public List<EnquiryForm> searchBEnquiryFormByQualification(String quali, Manager manager) {
         return this.enquiryFormRepo.findByQualificationAndManager(quali, manager);
     }
+
+    @Override
+    public List<String> getAllDistinctColleges() {
+        return this.enquiryFormRepo.findAllDistinctColleges();
+    }
+
+    @Override
+    public List<String> getAllDistinctQualification() {
+        return this.enquiryFormRepo.findAllDistinctQualification();
+    }
+
+    @Override
+    public List<String> getAllDistinctBranch() {
+        return this.enquiryFormRepo.findAllDistinctBranch();
+    }
 }

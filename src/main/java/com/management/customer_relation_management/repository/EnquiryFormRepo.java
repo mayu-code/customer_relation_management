@@ -31,5 +31,5 @@ public interface EnquiryFormRepo extends JpaRepository<EnquiryForm,Long> {
     List<String> findAllDistinctBranch();
 
     @Query("SELECT DISTINCT r.qualification FROM EnquiryForm r")
-    List<String> findAllDistinctQualifications();
+    List<String> findAllDistinctQualification();
 }

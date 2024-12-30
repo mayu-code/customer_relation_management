@@ -232,7 +232,7 @@ public class EnquiryController {
         }
     }
 
-    @GetMapping("/searchBEnquiryFormById/{id}")
+    @GetMapping("/searchEnquiryFormById/{id}")
     public ResponseEntity<DataResponse> searchBEnquiryFormById(@RequestHeader("Authorization")String jwt,@PathVariable("id") String id){
         DataResponse response = new DataResponse();
         Manager manager = managerServiceImpl.getManagerByJwt(jwt);
@@ -251,7 +251,7 @@ public class EnquiryController {
         }
     }
 
-    @GetMapping("/searchBEnquiryFormByName/{name}")
+    @GetMapping("/searchEnquiryFormByName/{name}")
     public ResponseEntity<DataResponse> searchBEnquiryFormByName(@RequestHeader("Authorization")String jwt,@PathVariable("name") String name){
         DataResponse response = new DataResponse();
         Manager manager = managerServiceImpl.getManagerByJwt(jwt);
@@ -270,7 +270,7 @@ public class EnquiryController {
         }
     }
 
-    @GetMapping("/searchBEnquiryFormByBranch/{branch}")
+    @GetMapping("/searchEnquiryFormByBranch/{branch}")
     public ResponseEntity<DataResponse> searchBEnquiryFormByBranch(@RequestHeader("Authorization")String jwt,@PathVariable("branch") String branch){
         DataResponse response = new DataResponse();
         Manager manager = managerServiceImpl.getManagerByJwt(jwt);
@@ -289,7 +289,7 @@ public class EnquiryController {
         }
     }
 
-    @GetMapping("/searchBEnquiryFormByCollege/{college}")
+    @GetMapping("/searchEnquiryFormByCollege/{college}")
     public ResponseEntity<DataResponse> searchBEnquiryFormByCollege(@RequestHeader("Authorization")String jwt,@PathVariable("college") String college){
         DataResponse response = new DataResponse();
         Manager manager = managerServiceImpl.getManagerByJwt(jwt);
@@ -308,7 +308,7 @@ public class EnquiryController {
         }
     }
 
-    @GetMapping("/searchBEnquiryFormByQualification/{quali}")
+    @GetMapping("/searchEnquiryFormByQualification/{quali}")
     public ResponseEntity<DataResponse> searchBEnquiryFormByQualification(@RequestHeader("Authorization")String jwt,@PathVariable("quali") String quali){
         DataResponse response = new DataResponse();
         Manager manager = managerServiceImpl.getManagerByJwt(jwt);

@@ -21,4 +21,8 @@ public interface EnquiryFormService {
     List<EnquiryForm> searchBEnquiryFormByBranch(String branch,Manager manager);
     List<EnquiryForm> searchBEnquiryFormByCollege(String college,Manager manager);
     List<EnquiryForm> searchBEnquiryFormByQualification(String quali,Manager manager);
+
+    List<String> getAllDistinctColleges();
+    List<String> getAllDistinctQualification();
+    List<String> getAllDistinctBranch();
 } 
