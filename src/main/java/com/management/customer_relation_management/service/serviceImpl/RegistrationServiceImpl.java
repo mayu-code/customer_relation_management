@@ -48,4 +48,15 @@ public class RegistrationServiceImpl implements RegistrationService {
          return ;
     }
 
+    @Override
+    public List<RegistrationForm> searchRegistrationFormByName(String name) {
+        return this.registrationRepository.searchRegistrationFormsByName(name);
+    }
+
+    @Override
+    public List<RegistrationForm> searchRegistrationFormById(String id) {
+        return this.registrationRepository.searchRegistrationFormsById(id);
+    }
+
+
 }

@@ -19,5 +19,9 @@ public interface RegistrationService {
 
     void deleteRegistrationForm(long id);
 
+    List<RegistrationForm> searchRegistrationFormByName(String name);
+
+    List<RegistrationForm> searchRegistrationFormById(String id);
+
     
 }

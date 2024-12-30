@@ -165,4 +165,40 @@ public class RegistrationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+    @GetMapping("/serachRegistrationByName/{name}")
+    public ResponseEntity<DataResponse> searchRegistrationByName(@PathVariable("name")String name){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.registrationService.searchRegistrationFormByName(name));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("search successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/serachRegistrationById/{id}")
+    public ResponseEntity<DataResponse> searchRegistrationById(@PathVariable("id")String id){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.registrationService.searchRegistrationFormById(id));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("search successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 }
