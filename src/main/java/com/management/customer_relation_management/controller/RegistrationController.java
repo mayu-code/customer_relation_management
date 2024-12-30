@@ -165,6 +165,7 @@ public class RegistrationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+    
 
     @GetMapping("/searchRegistrationByName/{name}")
     public ResponseEntity<DataResponse> searchRegistrationByName(@RequestHeader("Authorization") String jwt,@PathVariable("name")String name){
@@ -203,4 +204,81 @@ public class RegistrationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+    @GetMapping("/searchRegistrationByBranch/{branch}")
+    public ResponseEntity<DataResponse> searchRegistrationByBranch(@RequestHeader("Authorization") String jwt,@PathVariable("branch")String branch){
+        DataResponse response = new DataResponse();
+        Manager manager = this.managerService.getManagerByJwt(jwt);
+        try{
+            response.setData(this.registrationService.searchRegistrationFormsByBranch(branch, manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("search successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+    @GetMapping("/searchRegistrationByQualification/{quali}")
+    public ResponseEntity<DataResponse> searchRegistrationByQualification(@RequestHeader("Authorization") String jwt,@PathVariable("quali")String quali){
+        DataResponse response = new DataResponse();
+        Manager manager = this.managerService.getManagerByJwt(jwt);
+        try{
+       
+            response.setData(this.registrationService.searchRegistrationFormsByQualification(quali,manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("search successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/searchRegistrationByCollege/{college}")
+    public ResponseEntity<DataResponse> searchRegistrationByCollege(@RequestHeader("Authorization") String jwt,@PathVariable("college")String college){
+        DataResponse response = new DataResponse();
+        Manager manager = this.managerService.getManagerByJwt(jwt);
+        try{
+            response.setData(this.registrationService.searchRegistrationFormsByCollege(college,manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("search successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/searchRegistrationByCourse/{course}")
+    public ResponseEntity<DataResponse> searchRegistrationByCourse(@RequestHeader("Authorization") String jwt,@PathVariable("course")String course){
+        DataResponse response = new DataResponse();
+        Manager manager = this.managerService.getManagerByJwt(jwt);
+        try{
+            response.setData(this.registrationService.searchRegistrationFormsByCourse(course,manager));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("search successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
 }

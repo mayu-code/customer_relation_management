@@ -4,20 +4,21 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.management.customer_relation_management.entities.EnquiryForm;
 import com.management.customer_relation_management.entities.Manager;
 import com.management.customer_relation_management.entities.RegistrationForm;
 
-
 import java.util.List;
-
-// @Query("select u from User u where u.firstName LIKE %:query% OR u.lastName LIKE %:query% OR u.email LIKE %:query%")
-// public List<User> searchUser(@Param("query") String query);
 
 public interface RegistrationRepository extends JpaRepository<RegistrationForm, Long> {
 
     List<RegistrationForm> findByManager(Manager manager);
     List<RegistrationForm> findByCollegeAndManager(String college,Manager manager);
     List<RegistrationForm> findByBranchAndManager(String branch,Manager manager);
+    List<RegistrationForm> findByQualificationAndManager(String qualification,Manager manager);
+
+    @Query("SELECT r FROM RegistrationForm r JOIN r.registeredCourses c WHERE c.courseName = :courseName AND r.manager =:manager")
+    List<RegistrationForm> findByCourseName(String courseName,Manager manager);
 
     @Query("SELECT r FROM RegistrationForm r WHERE (r.name LIKE %:query% or r.email LIKE %:query% ) AND r.manager = :manager")
     List<RegistrationForm> searchRegistrationFormsByName(@Param("query") String query,@Param("manager") Manager Manager);
