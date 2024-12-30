@@ -31,7 +31,7 @@ public class CourseServiceImpl implements CourseService{
 
     @Override
     public List<String> getDistinctCourse() {
-        return this.getDistinctCourse();
+        return this.courseRepo.findAllDistinctCourses();
     }
     
 }

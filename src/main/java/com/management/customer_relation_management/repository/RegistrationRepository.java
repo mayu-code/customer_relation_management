@@ -11,19 +11,26 @@ import java.util.List;
 
 public interface RegistrationRepository extends JpaRepository<RegistrationForm, Long> {
 
-    List<RegistrationForm> findByManager(Manager manager);
+    @Query("SELECT r FROM RegistrationForm r WHERE r.manager = :manager ORDER BY r.registrationDate DESC")
+    List<RegistrationForm> findByManager(@Param("manager")Manager manager);
+
+    @Query("SELECT r FROM RegistrationForm r WHERE r.college =:college AND r.manager =:manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByCollegeAndManager(String college,Manager manager);
+
+    @Query("SELECT r FROM RegistrationForm r WHERE r.branch =:branch AND r.manager =:manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByBranchAndManager(String branch,Manager manager);
+
+    @Query("SELECT r FROM RegistrationForm r WHERE r.qualification =:qualification AND r.manager =:manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByQualificationAndManager(String qualification,Manager manager);
 
 
-    @Query("SELECT r FROM RegistrationForm r JOIN r.registeredCourses c WHERE c.courseName = :courseName AND r.manager =:manager")
+    @Query("SELECT r FROM RegistrationForm r JOIN r.registeredCourses c WHERE c.courseName = :courseName AND r.manager =:manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByCourseName(@Param("courseName")String courseName,@Param("manager")Manager manager);
 
-    @Query("SELECT r FROM RegistrationForm r WHERE (r.name LIKE %:query% or r.email LIKE %:query% ) AND r.manager = :manager")
+    @Query("SELECT r FROM RegistrationForm r WHERE (r.name LIKE %:query% or r.email LIKE %:query% ) AND r.manager = :manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> searchRegistrationFormsByName(@Param("query") String query,@Param("manager") Manager Manager);
 
-    @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.id AS string) LIKE %:query% AND r.manager = :manager")
+    @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.id AS string) LIKE %:query% AND r.manager = :manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> searchRegistrationFormsById(@Param("query") String query,@Param("manager") Manager manager);
 
 
