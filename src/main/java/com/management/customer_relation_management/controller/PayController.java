@@ -46,7 +46,7 @@ public class PayController {
         receipt.setTowards(form.getManager().getName());
         
         form.setAmountPaid(form.getAmountPaid()+registrationForm.getAmountPaid());
-        double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths()-1;
+        double amount = (form.getTotalFees()-form.getAmountPaid())/(form.getInstallmentsMonths()-1);
         form.setInstallments(amount);
         if(form.getInstallments()>0 && form.getInstallmentsMonths()==0){
             form.setInstallmentsMonths(form.getInstallmentsMonths());
