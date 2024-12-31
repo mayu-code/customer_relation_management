@@ -59,9 +59,7 @@ public class PayController {
         if(form.getInstallments()>0 && form.getInstallmentsMonths()==0){
             form.setInstallmentsMonths(1);
         }
-        
-   
-        if(form.getTotalFees()==form.getAmountPaid()){
+        if(form.getTotalFees()<=form.getAmountPaid()){
             form.setDeuDate("completed");
             form.setInstallmentsMonths(0);
         }
