@@ -93,4 +93,9 @@ public class EnquiryFormServiceImpl implements EnquiryFormService {
     public List<String> getAllDistinctBranch() {
         return this.enquiryFormRepo.findAllDistinctBranch();
     }
+
+    @Override
+    public EnquiryForm getEnquiryFormByEmail(String email) {
+        return this.enquiryFormRepo.findByEmail(email);
+    }
 }

@@ -1,5 +1,6 @@
 package com.management.customer_relation_management.service.serviceImpl;
 
+import java.util.List;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,22 @@ public class ManagerServiceImpl implements ManagerService {
         String email = JwtProvider.getEmailFromJwtToken(jwt);
         Manager manager = this.managerRepo.findByEmail(email);
         return manager;
+    }
+
+    @Override
+    public List<Manager> getAllManagers() {
+        return this.managerRepo.findAll();
+    }
+
+    @Override
+    public Manager updateManager(Manager manager) {
+        return this.managerRepo.save(manager);
+    }
+
+    @Override
+    public void deleteManager(UUID id){
+        this.managerRepo.deleteById(id);
+        return ;
     }
 
 }

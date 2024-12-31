@@ -22,6 +22,7 @@ import com.management.customer_relation_management.entities.EnquiryForm;
 import com.management.customer_relation_management.entities.Manager;
 import com.management.customer_relation_management.helper.DateTimeFormatter;
 import com.management.customer_relation_management.response.DataResponse;
+import com.management.customer_relation_management.response.SuccessResponse;
 import com.management.customer_relation_management.service.serviceImpl.CourseServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.EnquiryDetailServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.EnquiryFormServiceImpl;
@@ -46,10 +47,17 @@ public class EnquiryController {
 
 
     @PostMapping("/addEnquiry")
-    public ResponseEntity<DataResponse> addEnquiry(@RequestHeader("Authorization") String jwt,@RequestBody EnquiryForm enquiryForm){
+    public ResponseEntity<SuccessResponse> addEnquiry(@RequestHeader("Authorization") String jwt,@RequestBody EnquiryForm enquiryForm){
         Manager manager = this.managerServiceImpl.getManagerByJwt(jwt);
         EnquiryForm enquiryForm2 = new EnquiryForm();
-        DataResponse response = new DataResponse();
+        SuccessResponse response = new SuccessResponse();
+        EnquiryForm isForm = this.EnquiryFormService.getEnquiryFormByEmail(enquiryForm.getEmail());
+        if(isForm!=null){
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("Enquiry Form exits please enter a another email !");
+            return ResponseEntity.of(Optional.of(response));
+        }
         enquiryForm.setEnquiryDate(DateTimeFormatter.format(LocalDateTime.now()));
         List<Course> courses = enquiryForm.getCourses();
         try{
@@ -61,25 +69,32 @@ public class EnquiryController {
             response.setStatus(HttpStatus.CREATED);
             response.setStatusCode(200);
             response.setMessage("Enquiry Added Succesfully !");
-            response.setData(enquiryForm2);
             return ResponseEntity.of(Optional.of(response));
         }
         catch(Exception e){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setStatusCode(500);
-            response.setData(null);
             response.setMessage("Something Went wrong !");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
 
     @PostMapping("/updateEnquiry")
-    public ResponseEntity<DataResponse> updateEnquiry(@RequestBody EnquiryForm enquiryForm){
+    public ResponseEntity<SuccessResponse> updateEnquiry(@RequestBody EnquiryForm enquiryForm){
+
+        EnquiryForm updateEnquiry = this.EnquiryFormService.getEnquiryFormById(enquiryForm.getId());
+        updateEnquiry.setBranch(enquiryForm.getBranch());
+        updateEnquiry.setCollege(enquiryForm.getCollege());
+        updateEnquiry.setQualification(enquiryForm.getQualification());
+        updateEnquiry.setEmail(enquiryForm.getEmail());
+        updateEnquiry.setContact(enquiryForm.getContact());
         EnquiryForm enquiryForm2 = new EnquiryForm();
-        DataResponse response = new DataResponse();
+        SuccessResponse response = new SuccessResponse();
+
         List<Course> courses = enquiryForm.getCourses();
+
         try{
-            enquiryForm2 = this.EnquiryFormService.updateEnquiryForm(enquiryForm);
+            enquiryForm2 = this.EnquiryFormService.updateEnquiryForm(updateEnquiry);
             for(Course course:courses){
                 System.out.println(course.toString());
                 this.courseSErvice.addEnquiryCourse(course, enquiryForm2);
@@ -87,13 +102,11 @@ public class EnquiryController {
             response.setStatus(HttpStatus.ACCEPTED);
             response.setStatusCode(200);
             response.setMessage("Enquiry update Succesfully !");
-            response.setData(enquiryForm2);
             return ResponseEntity.of(Optional.of(response));
         }
         catch(Exception e){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setStatusCode(500);
-            response.setData(null);
             response.setMessage("Something Went wrong !");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

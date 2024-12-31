@@ -10,6 +10,8 @@ import com.management.customer_relation_management.entities.Manager;
 
 public interface EnquiryFormRepo extends JpaRepository<EnquiryForm,Long> {
     
+    EnquiryForm findByEmail(String email);
+
     @Query("SELECT e FROM EnquiryForm e WHERE e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> findByManager(Manager manager);
 

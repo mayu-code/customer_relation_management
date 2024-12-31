@@ -10,9 +10,11 @@ public interface RegistrationService {
     RegistrationForm createRegistration(RegistrationForm registrationForm,Manager manager);
     RegistrationForm updateRegistrationForm(RegistrationForm registrationForm);
     
+    RegistrationForm getreRegistrationFormByEmail(String email);
     RegistrationForm getRegistrationFormById(long id);
     List<RegistrationForm> getRegistrationFormByManager(Manager manager);
     List<RegistrationForm> allRegistrationForms();
+    
 
     void deleteRegistrationForm(long id);
 
@@ -22,6 +24,8 @@ public interface RegistrationService {
     List<RegistrationForm> searchRegistrationFormsByQualification(String branch,Manager manager);
     List<RegistrationForm> searchRegistrationFormsByCollege(String branch,Manager manager);
     List<RegistrationForm> searchRegistrationFormsByCourse(String courseName ,Manager manager);
+
+    List<RegistrationForm> getDueRegistrationForms(Manager manager);
 
     List<String> getAllDistinctColleges();
     List<String> getAllDistinctQualification();

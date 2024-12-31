@@ -93,4 +93,16 @@ public class RegistrationServiceImpl implements RegistrationService {
         return this.registrationRepository.findByCourseName(courseName, manager);
     }
 
+    @Override
+    public RegistrationForm getreRegistrationFormByEmail(String email) {
+        return this.registrationRepository.findByEmail(email);
+    }
+
+    @Override
+    public List<RegistrationForm> getDueRegistrationForms(Manager manager) {
+        return this.registrationRepository.findDueEntries(manager);
+    }
+
+    
+
 }

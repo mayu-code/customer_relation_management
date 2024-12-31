@@ -11,6 +11,8 @@ import java.util.List;
 
 public interface RegistrationRepository extends JpaRepository<RegistrationForm, Long> {
 
+    RegistrationForm findByEmail(String email);
+
     @Query("SELECT r FROM RegistrationForm r WHERE r.manager = :manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByManager(@Param("manager")Manager manager);
 
@@ -32,6 +34,9 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
 
     @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.id AS string) LIKE %:query% AND r.manager = :manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> searchRegistrationFormsById(@Param("query") String query,@Param("manager") Manager manager);
+
+    @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.deuDate AS date) = CURRENT_DATE AND r.manager = :manager ORDER BY r.id DESC")
+    List<RegistrationForm> findDueEntries(@Param("manager") Manager manager);
 
 
     @Query("SELECT DISTINCT r.college FROM RegistrationForm r")

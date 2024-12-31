@@ -7,6 +7,7 @@ import com.management.customer_relation_management.entities.Manager;
 
 public interface EnquiryFormService {
 
+    EnquiryForm getEnquiryFormByEmail(String email);
     EnquiryForm addEnquiryForm(EnquiryForm enquiryForm,Manager manager);
     List<EnquiryForm> enquiryFormByManager(Manager manager);
     List<EnquiryForm> allEnquiryForms();

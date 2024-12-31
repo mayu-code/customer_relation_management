@@ -1,5 +1,6 @@
 package com.management.customer_relation_management.service.serviceInterface;
 
+import java.util.List;
 import java.util.UUID;
 
 import com.management.customer_relation_management.entities.Manager;
@@ -13,4 +14,10 @@ public interface ManagerService {
     Manager getManagerById(UUID id);
 
     Manager getManagerByJwt(String jwt);
+
+    List<Manager> getAllManagers();
+
+    Manager updateManager(Manager manager);
+
+    void deleteManager(UUID id);
 }
