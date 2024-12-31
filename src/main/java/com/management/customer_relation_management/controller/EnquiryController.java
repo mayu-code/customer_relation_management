@@ -88,6 +88,7 @@ public class EnquiryController {
         updateEnquiry.setQualification(enquiryForm.getQualification());
         updateEnquiry.setEmail(enquiryForm.getEmail());
         updateEnquiry.setContact(enquiryForm.getContact());
+        updateEnquiry.setName(enquiryForm.getName());
         EnquiryForm enquiryForm2 = new EnquiryForm();
         SuccessResponse response = new SuccessResponse();
 
