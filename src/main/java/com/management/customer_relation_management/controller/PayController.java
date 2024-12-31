@@ -55,12 +55,12 @@ public class PayController {
             form.setInstallments(amount);
         }
 
+        form.setInstallmentsMonths(form.getInstallmentsMonths()-1);
         if(form.getInstallments()>0 && form.getInstallmentsMonths()==0){
             form.setInstallmentsMonths(1);
         }
-        else{
-            form.setInstallmentsMonths(form.getInstallmentsMonths()-1);
-        }
+        
+   
         if(form.getTotalFees()==form.getAmountPaid()){
             form.setDeuDate("completed");
             form.setInstallmentsMonths(0);
