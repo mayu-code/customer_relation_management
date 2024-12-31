@@ -46,9 +46,21 @@ public class PayController {
         receipt.setTowards(form.getManager().getName());
         
         form.setAmountPaid(form.getAmountPaid()+registrationForm.getAmountPaid());
-        form.setInstallments(form.getInstallments()-1);
-        double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
+        form.setInstallmentsMonths(form.getInstallmentsMonths()-1);
+        if(form.getAmountPaid()>0 && form.getInstallmentsMonths()==0){
+            form.setInstallmentsMonths(form.getInstallmentsMonths());
+        }
+        else{
+            form.setInstallmentsMonths(form.getInstallmentsMonths()-1);
+        }
+        if(form.getTotalFees()==form.getAmountPaid()){
+            form.setDeuDate("completed");
+        }
+        else{
+            double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
         form.setInstallments(amount);
+        form.setDeuDate(DateTimeFormatter.format(LocalDateTime.now().plusMonths(1)));
+        }
         this.registrationServiceImpl.updateRegistrationForm(form);
 
         try{
