@@ -35,7 +35,7 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
     @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.id AS string) LIKE %:query% AND r.manager = :manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> searchRegistrationFormsById(@Param("query") String query,@Param("manager") Manager manager);
 
-    @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.deuDate AS date) = CURRENT_DATE AND r.manager = :manager ORDER BY r.id DESC")
+    @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.deuDate AS date) <= CURRENT_DATE AND r.manager = :manager ORDER BY r.deuDate ASC")
     List<RegistrationForm> findDueEntries(@Param("manager") Manager manager);
 
 
