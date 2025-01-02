@@ -33,6 +33,7 @@ public class Manager implements UserDetails {
     private String cantact;
     private String password;
     private boolean approved = false ;
+    private boolean active = false;
     private Roles role = Roles.MANAGER;
     private String registationDate;
     private String loginDate;

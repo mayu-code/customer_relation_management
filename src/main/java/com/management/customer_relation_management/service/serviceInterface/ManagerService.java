@@ -15,9 +15,13 @@ public interface ManagerService {
 
     Manager getManagerByJwt(String jwt);
 
-    List<Manager> getAllManagers();
+    List<Manager> getAllApprovedManagers();
+
+    List<Manager> getDisApprovedManagers();
 
     Manager updateManager(Manager manager);
 
     void deleteManager(UUID id);
+
+    
 }

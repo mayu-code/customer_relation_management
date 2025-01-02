@@ -215,6 +215,12 @@ public class AuthController {
             res.setStatusCode(403);
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
         }
+        if(!manager.isActive()){
+            res.setStatus(HttpStatus.FORBIDDEN);
+            res.setMessage("Manager is not active yet !");
+            res.setStatusCode(403);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+        }
 
         Authentication authentication = userAuthenticate(userDetails.getUsername(), loginRequest.getPassword());
 

@@ -67,8 +67,25 @@ public class AdminController {
     public ResponseEntity<DataResponse> getAllMangers(){
         DataResponse response = new DataResponse();
         try{
-            response.setData(this.managerServiceImpl.getAllManagers());
+            response.setData(this.managerServiceImpl.getAllApprovedManagers());
             response.setMessage("managers get successfully !");
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatusCode(500);
+            response.setMessage("something went wrong !");
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/getAllApprovalRequest")
+    public ResponseEntity<DataResponse> getAllApprovalRequest(){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.managerServiceImpl.getDisApprovedManagers());
+            response.setMessage("approved requests successfully !");
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
             return ResponseEntity.of(Optional.of(response));
@@ -103,6 +120,7 @@ public class AdminController {
         Manager manager = this.managerServiceImpl.getManagerById(approve.getId());
         if(approve.isApproved()){
             manager.setApproved(approve.isApproved());
+            manager.setActive(true);
             response.setMessage("manager approved successfully !");
         }else{
             manager.setApproved(approve.isApproved());

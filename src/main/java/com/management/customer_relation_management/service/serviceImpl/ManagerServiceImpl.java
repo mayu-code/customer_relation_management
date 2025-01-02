@@ -40,8 +40,8 @@ public class ManagerServiceImpl implements ManagerService {
     }
 
     @Override
-    public List<Manager> getAllManagers() {
-        return this.managerRepo.findAll();
+    public List<Manager> getAllApprovedManagers() {
+        return this.managerRepo.getAllApprovedManager();
     }
 
     @Override
@@ -53,6 +53,11 @@ public class ManagerServiceImpl implements ManagerService {
     public void deleteManager(UUID id){
         this.managerRepo.deleteById(id);
         return ;
+    }
+
+    @Override
+    public List<Manager> getDisApprovedManagers() {
+        return this.managerRepo.getDisApprovedManager();
     }
 
 }
