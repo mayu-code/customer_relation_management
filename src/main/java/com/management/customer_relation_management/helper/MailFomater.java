@@ -5,8 +5,10 @@ import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 
 import com.management.customer_relation_management.entities.Course;
+import com.management.customer_relation_management.entities.Receipt;
 import com.management.customer_relation_management.entities.RegistrationForm;
 import com.management.customer_relation_management.service.serviceImpl.EmailServiceImpl;
+import com.management.customer_relation_management.service.serviceImpl.ReceiptServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.RegistrationServiceImpl;
 
 import jakarta.transaction.Transactional;
@@ -19,6 +21,9 @@ public class MailFomater {
 
     @Autowired
     EmailServiceImpl emailService;
+
+    @Autowired
+    ReceiptServiceImpl receiptServiceImpl;
 
     public static String generateRegistrationEmail(RegistrationForm registrationForm) {
         StringBuilder emailContent = new StringBuilder();
@@ -55,14 +60,48 @@ public class MailFomater {
     
         return emailContent.toString();
     }
+
+    public static String generateReceiptEmail(Receipt receipt) {
+        StringBuilder emailContent = new StringBuilder();
+        emailContent.append("<p>Dear,</p>").append(receipt.getSender());
+        emailContent.append("<p>We are pleased to inform you that we have received your payment. Below are the details of the receipt:</p>");
+        
+        emailContent.append("<table>");
+        emailContent.append("<tr><th>Receipt ID</th><td>").append(receipt.getId()).append("</td></tr>");
+        emailContent.append("<tr><th>Date</th><td>").append(receipt.getDate()).append("</td></tr>");
+        emailContent.append("<tr><th>Received Amount</th><td>₹").append(receipt.getRecievedAmount()).append("</td></tr>");
+        emailContent.append("<tr><th>Payment Method</th><td>").append(receipt.getPaymentType().toString()).append("</td></tr>");
+        emailContent.append("<tr><th>Sender</th><td>").append(receipt.getSender()).append("</td></tr>");
+        emailContent.append("<tr><th>Towards</th><td>").append(receipt.getTowards()).append("</td></tr>");
+        emailContent.append("</table>");
+        
+        emailContent.append("<p>Thank you for your payment.</p>");
+        emailContent.append("<p>If you have any questions, please feel free to contact us.</p>");
+        emailContent.append("<p>Best regards,</p>");
+        emailContent.append("<p>Gradient Infotech</p>");
+        emailContent.append("<p>Management Gradient Infotech</p>");
+        
+        return emailContent.toString();
+    }
+    
+    
     
     
 @Async("taskExecutor")
 @Transactional
-public void mail(long id){
+public void registrationMail(long id){
     RegistrationForm registrationForm = this.registrationService.getRegistrationFormById(id);
     String body = generateRegistrationEmail(registrationForm);
     String subject = "Subject: Registration Successful! Welcome to Gradient Infotech";
     emailService.sendHtmlEmail(registrationForm.getEmail(), subject, body);
+}
+
+@Async("taskExecutor")
+@Transactional
+public void paymentMail(long id , String email){
+    Receipt receipt = this.receiptServiceImpl.getReceiptById(id);
+    String body = generateReceiptEmail(receipt);
+    String subject = "Subject : Payment successful ";
+    emailService.sendHtmlEmail(email, subject, body);
 }
 }

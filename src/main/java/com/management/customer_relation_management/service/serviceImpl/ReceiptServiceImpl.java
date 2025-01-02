@@ -24,5 +24,10 @@ public class ReceiptServiceImpl implements ReceiptService {
     public List<Receipt> getReceipt() {
         return this.receiptRepo.findAll();
     }
+
+    @Override
+    public Receipt getReceiptById(long id) {
+        return this.receiptRepo.findById(id).get();
+    }
     
 }
