@@ -1,12 +1,14 @@
 package com.management.customer_relation_management.controller;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
@@ -210,6 +212,24 @@ public class AdminController {
             response.setStatusCode(200);
             response.setMessage("enquiryform get succusfully !");
             response.setData(this.enquiryFormServiceImpl.getAllEnquiryFormsForAdmin());
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/getManagerById/{id}")
+    public ResponseEntity<DataResponse> getManagerById(@PathVariable("id")UUID id){
+        DataResponse response = new DataResponse();
+        try{
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("manager get succusfully !");
+            response.setData(this.managerServiceImpl.getManagerById(id));
             return ResponseEntity.of(Optional.of(response));
         }catch(Exception e){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
