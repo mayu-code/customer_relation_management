@@ -31,5 +31,7 @@ public interface RegistrationService {
     List<String> getAllDistinctQualification();
     List<String> getAllDistinctBranch();
 
-    
+    // for admin 
+    public List<RegistrationForm> getAllFormsForAdmin();
+    public List<RegistrationForm> getAllDueFroFormsForAdmin();
 }

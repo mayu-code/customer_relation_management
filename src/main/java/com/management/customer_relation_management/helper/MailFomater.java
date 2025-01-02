@@ -69,7 +69,7 @@ public class MailFomater {
         emailContent.append("<table>");
         emailContent.append("<tr><th>Receipt ID</th><td>").append(receipt.getId()).append("</td></tr>");
         emailContent.append("<tr><th>Date</th><td>").append(receipt.getDate()).append("</td></tr>");
-        emailContent.append("<tr><th>Received Amount</th><td>₹").append(receipt.getRecievedAmount()).append("</td></tr>");
+        emailContent.append("<tr><th>Received Amount</th><td> ₹ ").append(receipt.getRecievedAmount()).append("</td></tr>");
         emailContent.append("<tr><th>Payment Method</th><td>").append(receipt.getPaymentType().toString()).append("</td></tr>");
         emailContent.append("<tr><th>Sender</th><td>").append(receipt.getSender()).append("</td></tr>");
         emailContent.append("<tr><th>Towards</th><td>").append(receipt.getTowards()).append("</td></tr>");

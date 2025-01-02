@@ -48,4 +48,9 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
     @Query("SELECT DISTINCT r.qualification FROM RegistrationForm r")
     List<String> findAllDistinctQualifications();
 
+
+    // RegistrationFrom credentials 
+    @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.deuDate AS date) <= CURRENT_DATE ORDER BY r.deuDate ASC")
+    List<RegistrationForm> findAllDueEntries();
+
 }

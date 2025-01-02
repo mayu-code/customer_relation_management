@@ -161,7 +161,7 @@ public class RegistrationController {
 
 
     @GetMapping("/registrations")
-    public ResponseEntity<DataResponse> getEnquiryByManager(@RequestHeader("Authorization") String jwt){
+    public ResponseEntity<DataResponse> getRegistrationByManager(@RequestHeader("Authorization") String jwt){
         Manager manager  = this.managerService.getManagerByJwt(jwt);
         DataResponse response = new DataResponse();
         try{

@@ -19,7 +19,9 @@ import com.management.customer_relation_management.entities.Manager;
 import com.management.customer_relation_management.response.DataResponse;
 import com.management.customer_relation_management.response.SuccessResponse;
 import com.management.customer_relation_management.service.serviceImpl.AdminServiceImpl;
+import com.management.customer_relation_management.service.serviceImpl.EnquiryFormServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.ManagerServiceImpl;
+import com.management.customer_relation_management.service.serviceImpl.RegistrationServiceImpl;
 
 @RestController
 @RequestMapping("/admin")
@@ -31,6 +33,12 @@ public class AdminController {
 
     @Autowired
     private ManagerServiceImpl managerServiceImpl;
+
+    @Autowired
+    private RegistrationServiceImpl registrationServiceImpl;
+
+    @Autowired
+    private EnquiryFormServiceImpl enquiryFormServiceImpl;
 
     @GetMapping("/getAdmin")
     public ResponseEntity<DataResponse> getAdmin(@RequestHeader("Authorization") String jwt) {
@@ -109,6 +117,61 @@ public class AdminController {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setStatusCode(500);
             response.setMessage("something went wrong !");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/registrations")
+    public ResponseEntity<DataResponse> getAllRegistration(){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(registrationServiceImpl.getAllFormsForAdmin());
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("registration forms get succusfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/getDueForm")
+    public ResponseEntity<DataResponse> getDueRegistrations(){
+        DataResponse response = new DataResponse();
+        try{
+            response.setData(this.registrationServiceImpl.getAllDueFroFormsForAdmin());
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("Get due form successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/enquiries")
+    public ResponseEntity<DataResponse> getAllEnquiry(){
+        
+        DataResponse response = new DataResponse();
+        try{
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("enquiryform get succusfully !");
+            response.setData(this.enquiryFormServiceImpl.getAllEnquiryFormsForAdmin());
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }

@@ -103,6 +103,14 @@ public class RegistrationServiceImpl implements RegistrationService {
         return this.registrationRepository.findDueEntries(manager);
     }
 
+    public List<RegistrationForm> getAllFormsForAdmin(){
+        return this.registrationRepository.findAll();
+    }
+
+    public List<RegistrationForm> getAllDueFroFormsForAdmin(){
+        return this.registrationRepository.findAllDueEntries();
+    }
+
     
 
 }

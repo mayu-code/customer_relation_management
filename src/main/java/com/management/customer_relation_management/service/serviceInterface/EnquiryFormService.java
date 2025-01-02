@@ -26,4 +26,10 @@ public interface EnquiryFormService {
     List<String> getAllDistinctColleges();
     List<String> getAllDistinctQualification();
     List<String> getAllDistinctBranch();
+
+
+    // admin 
+    List<EnquiryForm> getAllEnquiryFormsForAdmin();
 } 
+
+

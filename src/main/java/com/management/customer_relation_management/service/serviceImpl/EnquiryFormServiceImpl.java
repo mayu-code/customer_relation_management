@@ -98,4 +98,9 @@ public class EnquiryFormServiceImpl implements EnquiryFormService {
     public EnquiryForm getEnquiryFormByEmail(String email) {
         return this.enquiryFormRepo.findByEmail(email);
     }
+
+    @Override
+    public List<EnquiryForm> getAllEnquiryFormsForAdmin() {
+        return this.enquiryFormRepo.findAll();
+    }
 }
