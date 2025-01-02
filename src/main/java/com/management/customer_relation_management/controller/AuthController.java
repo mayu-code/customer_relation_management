@@ -114,7 +114,7 @@ public class AuthController {
 
             res.setStatus(HttpStatus.OK);
             res.setStatusCode(200);
-            res.setMessage("Manager Registered Successfully");
+            res.setMessage("Registered Successfull. Approval request sent to Admin !");
             return ResponseEntity.of(Optional.of(res));
 
         } catch (Exception e) {
