@@ -27,6 +27,7 @@ import com.management.customer_relation_management.entities.RegistrationForm;
 import com.management.customer_relation_management.helper.DateTimeFormatter;
 import com.management.customer_relation_management.helper.MailFomater;
 import com.management.customer_relation_management.response.DataResponse;
+import com.management.customer_relation_management.response.SuccessResponse;
 import com.management.customer_relation_management.service.serviceImpl.CourseServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.ImageUploader;
 import com.management.customer_relation_management.service.serviceImpl.ManagerServiceImpl;
@@ -58,8 +59,8 @@ public class RegistrationController {
 
     @PostMapping("/addRegistration")
     public ResponseEntity<DataResponse> addEnquiry(@RequestHeader("Authorization") String jwt,
-    @RequestPart("image") MultipartFile image,
-    @RequestPart("registrationForm") RegistrationForm registrationForm){
+                                                    @RequestPart("image") MultipartFile image,
+                                                    @RequestPart("registrationForm") RegistrationForm registrationForm){
         Manager manager = this.managerService.getManagerByJwt(jwt);
         RegistrationForm registrationForm2 = new RegistrationForm();
         RegistrationForm isRegister = this.registrationService.getreRegistrationFormByEmail(registrationForm.getEmail());
@@ -102,7 +103,7 @@ public class RegistrationController {
             response.setStatusCode(200);
             response.setMessage("Regitration Successfully !");
             long id = registrationForm2.getId();
-            CompletableFuture.runAsync(() -> mailFomater.mail(id));
+            CompletableFuture.runAsync(() -> mailFomater.registrationMail(id));
             return ResponseEntity.of(Optional.of(response));
         }
         catch(Exception e){
@@ -115,37 +116,44 @@ public class RegistrationController {
     }
 
     @PostMapping("/updateRegistration")
-    public ResponseEntity<DataResponse> updateEnquiry(@RequestBody RegistrationForm registrationForm){
-        RegistrationForm registrationForm2 = new RegistrationForm();
-        DataResponse response = new DataResponse();
-        List<Course> courses = registrationForm.getRegisteredCourses();
-        registrationForm2 = this.registrationService.getRegistrationFormById(registrationForm.getId());
-        if(registrationForm.getAmountPaid()!=registrationForm2.getAmountPaid()){
-            response.setMessage("you don't have a permission to change the paid amount ");
-            response.setData(registrationForm2);
+    public ResponseEntity<SuccessResponse> updateEnquiry(@RequestBody RegistrationForm registrationForm){
+        SuccessResponse response = new SuccessResponse();
+        RegistrationForm registrationForm2 = this.registrationService.getRegistrationFormById(registrationForm.getId());
+        RegistrationForm isRegistrationForm = this.registrationService.getreRegistrationFormByEmail(registrationForm.getEmail());
+        if(!(isRegistrationForm==null)){
+            response.setMessage("email already present");
             response.setStatus(HttpStatus.LOCKED);
             response.setStatusCode(423);
             return ResponseEntity.of(Optional.of(response));
         }
+        if(registrationForm.getAmountPaid()!=registrationForm2.getAmountPaid()){
+            response.setMessage("you don't have a permission to change the paid amount ");
+            response.setStatus(HttpStatus.LOCKED);
+            response.setStatusCode(423);
+            return ResponseEntity.of(Optional.of(response));
+        }
+        if(registrationForm2.getInstallmentsMonths()!=registrationForm.getInstallmentsMonths()){
+            registrationForm2.setInstallmentsMonths(registrationForm.getInstallmentsMonths());
+            double installmentAmount = (registrationForm2.getTotalFees()-registrationForm2.getAmountPaid())/registrationForm2.getInstallmentsMonths();
+            registrationForm2.setInstallments(installmentAmount);
+        }
+        registrationForm2.setBranch(registrationForm.getBranch());
+        registrationForm2.setCollege(registrationForm.getCollege());
+        registrationForm2.setContact(registrationForm.getContact());
+        registrationForm2.setEmail(registrationForm.getEmail());
+        registrationForm2.setQualification(registrationForm.getQualification());
         
         try{
-            registrationForm2 = null;
-            registrationForm2 = this.registrationService.updateRegistrationForm(registrationForm);
-            for(Course course:courses){
-                System.out.println(course.toString());
-                courseService.addRegisterCourse(course, registrationForm2);
-            }
+            this.registrationService.updateRegistrationForm(registrationForm2);
             response.setStatus(HttpStatus.CREATED);
             response.setStatusCode(200);
-            response.setMessage("Regitration  update Successfully !");
-            response.setData(registrationForm2);
+            response.setMessage("RegitrationFrom update Successfully !");
             return ResponseEntity.of(Optional.of(response));
         }
         catch(Exception e){
             e.printStackTrace();
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setStatusCode(500);
-            response.setData(null);
             response.setMessage("Something Went wrong !");
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }

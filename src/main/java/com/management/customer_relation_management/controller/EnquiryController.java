@@ -82,7 +82,15 @@ public class EnquiryController {
     @PostMapping("/updateEnquiry")
     public ResponseEntity<SuccessResponse> updateEnquiry(@RequestBody EnquiryForm enquiryForm){
 
+        SuccessResponse response = new SuccessResponse();
         EnquiryForm updateEnquiry = this.EnquiryFormService.getEnquiryFormById(enquiryForm.getId());
+        EnquiryForm isPresentByEmail = this.EnquiryFormService.getEnquiryFormByEmail(enquiryForm.getEmail());
+        if(!(isPresentByEmail==null)){
+            response.setStatus(HttpStatus.ALREADY_REPORTED);
+            response.setStatusCode(200);
+            response.setMessage("Email already present");
+            return ResponseEntity.of(Optional.of(response));
+        }
         updateEnquiry.setBranch(enquiryForm.getBranch());
         updateEnquiry.setCollege(enquiryForm.getCollege());
         updateEnquiry.setQualification(enquiryForm.getQualification());
@@ -91,7 +99,6 @@ public class EnquiryController {
         updateEnquiry.setName(enquiryForm.getName());
         updateEnquiry.getCourses().removeAll(updateEnquiry.getCourses());
         EnquiryForm enquiryForm2 = new EnquiryForm();
-        SuccessResponse response = new SuccessResponse();
 
         List<Course> courses = enquiryForm.getCourses();
 

@@ -2,6 +2,7 @@ package com.management.customer_relation_management.controller;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.management.customer_relation_management.entities.Receipt;
 import com.management.customer_relation_management.entities.RegistrationForm;
 import com.management.customer_relation_management.helper.DateTimeFormatter;
+import com.management.customer_relation_management.helper.MailFomater;
 import com.management.customer_relation_management.response.DataResponse;
 import com.management.customer_relation_management.service.serviceImpl.ReceiptServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.RegistrationServiceImpl;
@@ -30,6 +32,9 @@ public class PayController {
 
     @Autowired
     ReceiptServiceImpl receiptServiceImpl;
+
+    @Autowired
+    MailFomater mailFomater;
     
     @PostMapping("/payAmount")
     public ResponseEntity<DataResponse> payAmount(@RequestBody RegistrationForm registrationForm){
@@ -67,6 +72,9 @@ public class PayController {
         this.registrationServiceImpl.updateRegistrationForm(form);
 
         try{
+            receipt = this.receiptServiceImpl.addReceipt(receipt);
+            long id = receipt.getId();
+            CompletableFuture.runAsync(()->mailFomater.paymentMail(id, registrationForm.getEmail()));
             response.setData(this.receiptServiceImpl.addReceipt(receipt));
             response.setStatus(HttpStatus.CREATED);
             response.setStatusCode(200);

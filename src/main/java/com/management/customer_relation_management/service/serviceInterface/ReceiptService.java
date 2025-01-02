@@ -8,4 +8,5 @@ public interface ReceiptService {
     
     Receipt addReceipt(Receipt receipt);
     List<Receipt> getReceipt();
+    Receipt getReceiptById(long id);
 }
