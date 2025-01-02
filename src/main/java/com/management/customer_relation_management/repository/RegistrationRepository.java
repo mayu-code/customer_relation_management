@@ -13,6 +13,10 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
 
     RegistrationForm findByEmail(String email);
 
+    @SuppressWarnings("null")
+    @Query("SELECT r FROM RegistrationForm r ORDER BY r.registrationDate DESC")
+    List<RegistrationForm> findAll();
+
     @Query("SELECT r FROM RegistrationForm r WHERE r.manager = :manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByManager(@Param("manager")Manager manager);
 
@@ -24,7 +28,6 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
 
     @Query("SELECT r FROM RegistrationForm r WHERE r.qualification =:qualification AND r.manager =:manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByQualificationAndManager(String qualification,Manager manager);
-
 
     @Query("SELECT r FROM RegistrationForm r JOIN r.registeredCourses c WHERE c.courseName = :courseName AND r.manager =:manager ORDER BY r.registrationDate DESC")
     List<RegistrationForm> findByCourseName(@Param("courseName")String courseName,@Param("manager")Manager manager);
@@ -49,8 +52,12 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
     List<String> findAllDistinctQualifications();
 
 
-    // RegistrationFrom credentials 
+    // RegistrationFrom credentials  for admin
     @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.deuDate AS date) <= CURRENT_DATE ORDER BY r.deuDate ASC")
     List<RegistrationForm> findAllDueEntries();
+
+
+
+
 
 }

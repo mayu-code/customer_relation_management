@@ -12,6 +12,10 @@ public interface EnquiryFormRepo extends JpaRepository<EnquiryForm,Long> {
     
     EnquiryForm findByEmail(String email);
 
+    @SuppressWarnings("null")
+    @Query("SELECT e FROM EnquiryForm e ORDER BY e.enquiryDate DESC")
+    List<EnquiryForm> findAll();
+
     @Query("SELECT e FROM EnquiryForm e WHERE e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> findByManager(Manager manager);
 

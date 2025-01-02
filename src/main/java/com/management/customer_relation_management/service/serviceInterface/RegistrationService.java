@@ -1,7 +1,9 @@
 package com.management.customer_relation_management.service.serviceInterface;
 
+import java.time.LocalDate;
 import java.util.List;
 
+import com.management.customer_relation_management.dto.MonthWiseRegistration;
 import com.management.customer_relation_management.entities.Manager;
 import com.management.customer_relation_management.entities.RegistrationForm;
 
@@ -34,4 +36,5 @@ public interface RegistrationService {
     // for admin 
     public List<RegistrationForm> getAllFormsForAdmin();
     public List<RegistrationForm> getAllDueFroFormsForAdmin();
+    // public List<MonthWiseRegistration> getMonthWiseRegistration(LocalDate localDate);
 }

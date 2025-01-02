@@ -4,6 +4,6 @@ public enum PaymentType {
     CASH,
     CHEQUE,
     ONLINE,
-    INSTALLMENTS,
+    INSTALLMENT,
     NOT_SELECTED
 }
