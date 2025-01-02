@@ -1,5 +1,6 @@
 package com.management.customer_relation_management.controller;
 
+import java.lang.annotation.Repeatable;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestPart;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.management.customer_relation_management.entities.Course;
 import com.management.customer_relation_management.entities.Manager;
@@ -25,6 +28,7 @@ import com.management.customer_relation_management.helper.DateTimeFormatter;
 import com.management.customer_relation_management.helper.MailFomater;
 import com.management.customer_relation_management.response.DataResponse;
 import com.management.customer_relation_management.service.serviceImpl.CourseServiceImpl;
+import com.management.customer_relation_management.service.serviceImpl.ImageUploader;
 import com.management.customer_relation_management.service.serviceImpl.ManagerServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.ReceiptServiceImpl;
 import com.management.customer_relation_management.service.serviceImpl.RegistrationServiceImpl;
@@ -49,8 +53,13 @@ public class RegistrationController {
     @Autowired
     private ReceiptServiceImpl receiptServiceImpl;
 
+    @Autowired
+    private ImageUploader imageUploader;
+
     @PostMapping("/addRegistration")
-    public ResponseEntity<DataResponse> addEnquiry(@RequestHeader("Authorization") String jwt,@RequestBody RegistrationForm registrationForm){
+    public ResponseEntity<DataResponse> addEnquiry(@RequestHeader("Authorization") String jwt,
+    @RequestPart("image") MultipartFile image,
+    @RequestPart("registrationForm") RegistrationForm registrationForm){
         Manager manager = this.managerService.getManagerByJwt(jwt);
         RegistrationForm registrationForm2 = new RegistrationForm();
         RegistrationForm isRegister = this.registrationService.getreRegistrationFormByEmail(registrationForm.getEmail());
@@ -64,6 +73,7 @@ public class RegistrationController {
         }
 
         registrationForm.setRegistrationDate(DateTimeFormatter.format(LocalDateTime.now()));
+        registrationForm.setImageUrl(imageUploader.iamgeUploader(image));
         if(registrationForm.getTotalFees()==registrationForm.getAmountPaid() || registrationForm.getInstallmentsMonths()<=0){
             registrationForm.setInstallments(0);
             registrationForm.setInstallmentsMonths(0);
