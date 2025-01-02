@@ -28,7 +28,7 @@ public class MyController {
             response.setData(this.coursesServiceImpl.getAllCourses());
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
-            response.setMessage("Course get successfully !");
+            response.setMessage("Get all courses successfully !");
             return ResponseEntity.of(Optional.of(response));
         } catch (Exception e) {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);

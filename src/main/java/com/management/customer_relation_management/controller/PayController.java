@@ -2,7 +2,6 @@ package com.management.customer_relation_management.controller;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.concurrent.CompletableFuture;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.management.customer_relation_management.entities.EnquiryForm;
 import com.management.customer_relation_management.entities.Receipt;
 import com.management.customer_relation_management.entities.RegistrationForm;
 import com.management.customer_relation_management.helper.DateTimeFormatter;
@@ -72,7 +70,7 @@ public class PayController {
             response.setData(this.receiptServiceImpl.addReceipt(receipt));
             response.setStatus(HttpStatus.CREATED);
             response.setStatusCode(200);
-            response.setMessage("Regitration Successfully !");
+            response.setMessage("Payment Successfully !");
             return ResponseEntity.of(Optional.of(response));
         }
         catch(Exception e){

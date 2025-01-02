@@ -89,6 +89,7 @@ public class EnquiryController {
         updateEnquiry.setEmail(enquiryForm.getEmail());
         updateEnquiry.setContact(enquiryForm.getContact());
         updateEnquiry.setName(enquiryForm.getName());
+        updateEnquiry.getCourses().removeAll(updateEnquiry.getCourses());
         EnquiryForm enquiryForm2 = new EnquiryForm();
         SuccessResponse response = new SuccessResponse();
 
@@ -120,7 +121,7 @@ public class EnquiryController {
         try{
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
-            response.setMessage("enquiry form get succusfully !");
+            response.setMessage("enquiryform get succusfully !");
             response.setData(this.EnquiryFormService.enquiryFormByManager(manager));
             return ResponseEntity.of(Optional.of(response));
         }catch(Exception e){

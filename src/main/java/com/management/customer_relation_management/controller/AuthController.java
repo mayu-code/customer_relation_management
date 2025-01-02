@@ -209,6 +209,12 @@ public class AuthController {
             res.setStatusCode(403);
             return ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
         }
+        if(!manager.isApproved()){
+            res.setStatus(HttpStatus.FORBIDDEN);
+            res.setMessage("Manager not approved yet !");
+            res.setStatusCode(403);
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).body(res);
+        }
 
         Authentication authentication = userAuthenticate(userDetails.getUsername(), loginRequest.getPassword());
 

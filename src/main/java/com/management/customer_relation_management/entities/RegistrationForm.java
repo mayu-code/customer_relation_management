@@ -38,6 +38,8 @@ public class RegistrationForm {
 
     private String branch;
 
+    private String imageUrl;
+
     private String source;
 
     private String qualification;
