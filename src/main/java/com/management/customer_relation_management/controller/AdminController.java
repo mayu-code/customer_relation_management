@@ -223,7 +223,7 @@ public class AdminController {
     }
 
     @GetMapping("/getManagerById/{id}")
-    public ResponseEntity<DataResponse> getManagerById(@PathVariable("id")UUID id){
+    public ResponseEntity<DataResponse> getManagerById(@PathVariable("id") UUID id){
         DataResponse response = new DataResponse();
         try{
             response.setStatus(HttpStatus.OK);
