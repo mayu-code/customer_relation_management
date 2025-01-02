@@ -96,6 +96,8 @@ public void registrationMail(long id){
     emailService.sendHtmlEmail(registrationForm.getEmail(), subject, body);
 }
 
+@Async("taskExecutor")
+@Transactional
 public void paymentMail(long id , String email){
     Receipt receipt = this.receiptServiceImpl.getReceiptById(id);
     String body = generateReceiptEmail(receipt);
