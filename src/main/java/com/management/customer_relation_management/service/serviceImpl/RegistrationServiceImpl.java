@@ -3,6 +3,7 @@ package com.management.customer_relation_management.service.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.management.customer_relation_management.entities.Manager;
@@ -109,6 +110,11 @@ public class RegistrationServiceImpl implements RegistrationService {
     
         public List<RegistrationForm> getAllDueFroFormsForAdmin(){
             return this.registrationRepository.findAllDueEntries();
+        }
+
+        @Override
+        public List<RegistrationForm> top5RegistrationForms(Manager manager, Pageable pageable) {
+            return  this.registrationRepository.findFirst5Registrations(manager, pageable);
         }
 
 

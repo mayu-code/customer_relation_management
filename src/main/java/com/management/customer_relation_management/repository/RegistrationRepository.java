@@ -1,5 +1,6 @@
 package com.management.customer_relation_management.repository;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -41,6 +42,8 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
     @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.deuDate AS date) <= CURRENT_DATE AND r.manager = :manager ORDER BY r.deuDate ASC")
     List<RegistrationForm> findDueEntries(@Param("manager") Manager manager);
 
+    @Query("SELECT r FROM RegistrationForm r WHERE r.manager =:manager ORDER BY r.registrationDate DESC")
+    List<RegistrationForm> findFirst5Registrations(@Param("manager")Manager manager,Pageable pageable);
 
     @Query("SELECT DISTINCT r.college FROM RegistrationForm r")
     List<String> findAllDistinctColleges();

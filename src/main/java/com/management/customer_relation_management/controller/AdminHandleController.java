@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.management.customer_relation_management.entities.GetCourse;
 import com.management.customer_relation_management.response.DataResponse;
+import com.management.customer_relation_management.response.SuccessResponse;
 import com.management.customer_relation_management.service.serviceImpl.GetCoursesServiceImpl;
 
 @RestController
@@ -43,8 +44,8 @@ public class AdminHandleController {
     }
 
     @PostMapping("/deleteGetCourse/{id}")
-    public ResponseEntity<DataResponse> deleteGetCourse(@PathVariable("id") long id) {
-        DataResponse response = new DataResponse();
+    public ResponseEntity<SuccessResponse> deleteGetCourse(@PathVariable("id") long id) {
+        SuccessResponse response = new SuccessResponse();
         try {
             this.getCoursesServiceImpl.deleteCourse(id);
             response.setStatus(HttpStatus.OK);
@@ -55,7 +56,6 @@ public class AdminHandleController {
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
             response.setStatusCode(505);
             response.setMessage("something went wrong !");
-            response.setData(null);
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }

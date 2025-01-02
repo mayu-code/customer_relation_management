@@ -3,6 +3,8 @@ package com.management.customer_relation_management.service.serviceInterface;
 import java.time.LocalDate;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.management.customer_relation_management.dto.MonthWiseRegistration;
 import com.management.customer_relation_management.entities.Manager;
 import com.management.customer_relation_management.entities.RegistrationForm;
@@ -32,6 +34,7 @@ public interface RegistrationService {
     List<String> getAllDistinctColleges();
     List<String> getAllDistinctQualification();
     List<String> getAllDistinctBranch();
+    List<RegistrationForm> top5RegistrationForms(Manager manager,Pageable pageable);
 
     // for admin 
     public List<RegistrationForm> getAllFormsForAdmin();
