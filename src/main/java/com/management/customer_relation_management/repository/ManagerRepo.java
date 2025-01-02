@@ -12,6 +12,10 @@ public interface ManagerRepo extends JpaRepository<Manager,UUID> {
     
     Manager findByEmail(String email);
 
+    @SuppressWarnings("null")
+    @Query("SELECT m FROM Manager m ORDER BY m.registationDate DESC")
+    List<Manager> findAll();
+
     @Query("SELECT m FROM Manager m WHERE m.approved = TRUE ORDER BY m.registationDate DESC")
     List<Manager> getAllApprovedManager();
 

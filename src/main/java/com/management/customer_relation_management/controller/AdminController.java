@@ -1,18 +1,21 @@
 package com.management.customer_relation_management.controller;
 
 import java.util.Optional;
+import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.management.customer_relation_management.dto.ActiveManager;
 import com.management.customer_relation_management.dto.ApproveManager;
 import com.management.customer_relation_management.entities.Admin;
 import com.management.customer_relation_management.entities.Manager;
@@ -139,6 +142,31 @@ public class AdminController {
         }
     }
 
+    @PostMapping("/activeManager")
+    public ResponseEntity<SuccessResponse> activeManager(@RequestBody ActiveManager active){
+        SuccessResponse response = new SuccessResponse();
+        Manager manager = this.managerServiceImpl.getManagerById(active.getId());
+        if(!active.isActive()){
+            manager.setActive(false);
+            response.setMessage("manager diactivated successfully !");
+        }
+        else{
+            manager.setActive(true);
+            response.setMessage("manager active successfully ! ");
+        }
+        try{
+           this.managerServiceImpl.updateManager(manager);
+           response.setStatus(HttpStatus.OK);
+           response.setStatusCode(200);
+           return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(500);
+            response.setMessage("something went wrong !");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
     @GetMapping("/registrations")
     public ResponseEntity<DataResponse> getAllRegistration(){
         DataResponse response = new DataResponse();
@@ -194,5 +222,22 @@ public class AdminController {
         }
     }
 
+    @GetMapping("/getManagerById/{id}")
+    public ResponseEntity<DataResponse> getManagerById(@PathVariable("id")UUID id){
+        DataResponse response = new DataResponse();
+        try{
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("manager get succusfully !");
+            response.setData(this.managerServiceImpl.getManagerById(id));
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
 
 }
