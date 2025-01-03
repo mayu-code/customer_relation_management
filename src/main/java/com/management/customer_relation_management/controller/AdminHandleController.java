@@ -73,6 +73,8 @@ public class AdminHandleController {
         RegistrationForm form = this.registrationServiceImpl.getRegistrationFormById(updateAmount.getId());
         if(form.getAmountPaid()!=updateAmount.getAmount()){
             form.setAmountPaid((long)updateAmount.getAmount());
+            double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
+            form.setInstallments(amount);
         }      
         try{
             this.registrationServiceImpl.updateRegistrationForm(form);
