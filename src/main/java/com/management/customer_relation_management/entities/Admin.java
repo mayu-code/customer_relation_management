@@ -25,7 +25,7 @@ public class Admin implements UserDetails{
     private UUID id;
     private String email;
     private String name;
-    private String cantact;
+    private String contact;
     private String password;
     private Roles role = Roles.ADMIN;
     private String registationDate;
