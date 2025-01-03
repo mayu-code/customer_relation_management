@@ -67,7 +67,8 @@ public class PayController {
             form.setInstallmentsMonths(0);
         }
         else{
-        form.setDeuDate(DateTimeFormatter.format(LocalDateTime.parse(form.getDeuDate()).plusMonths(1)));
+        String date = DateTimeFormatter.format(DateTimeFormatter.deformat(form.getDeuDate()).plusMonths(1));
+        form.setDeuDate(date);
         }
         this.registrationServiceImpl.updateRegistrationForm(form);
 
