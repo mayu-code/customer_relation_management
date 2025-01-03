@@ -83,7 +83,7 @@ public class AdminHandleController {
             form.setInstallmentsMonths(1);
             }
         }
-        if(form.getAmountPaid()==updateAmount.getAmountPaid()) {
+        if(form.getTotalFees()==updateAmount.getAmountPaid()) {
             form.setInstallments(0);;
             form.setInstallmentsMonths(0);
             form.setDeuDate("completed");
