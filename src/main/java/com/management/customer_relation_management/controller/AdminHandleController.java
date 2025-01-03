@@ -13,9 +13,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.management.customer_relation_management.entities.GetCourse;
+import com.management.customer_relation_management.entities.RegistrationForm;
 import com.management.customer_relation_management.response.DataResponse;
 import com.management.customer_relation_management.response.SuccessResponse;
 import com.management.customer_relation_management.service.serviceImpl.GetCoursesServiceImpl;
+import com.management.customer_relation_management.service.serviceImpl.RegistrationServiceImpl;
 
 @RestController
 @RequestMapping("/admin")
@@ -24,6 +26,9 @@ public class AdminHandleController {
 
     @Autowired
     GetCoursesServiceImpl getCoursesServiceImpl;
+
+    @Autowired
+    RegistrationServiceImpl registrationServiceImpl;
 
     @PostMapping("/addGetCourse")
     public ResponseEntity<DataResponse> addGetCourse(@RequestBody GetCourse course) {
@@ -59,5 +64,27 @@ public class AdminHandleController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
+
+
+    @PostMapping("/updateRegistration")
+    public ResponseEntity<SuccessResponse> updateEnquiry(@RequestBody RegistrationForm registrationForm){
+        SuccessResponse response = new SuccessResponse();
+        
+        
+        try{
+            response.setStatus(HttpStatus.CREATED);
+            response.setStatusCode(200);
+            response.setMessage("RegitrationFrom update Successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(500);
+            response.setMessage("Something Went wrong !");
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
 
 }
