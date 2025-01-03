@@ -351,7 +351,6 @@ public class EnquiryController {
         }
     }
 
-
     @GetMapping("/getTop5EnquiryForm")
     public ResponseEntity<DataResponse> top5EnquiryForm(@RequestHeader("Authorization")String jwt){
         DataResponse response = new DataResponse();

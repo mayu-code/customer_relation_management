@@ -242,7 +242,7 @@ public class AdminController {
         }
     }
 
-    @GetMapping("/top5registrations")
+    @GetMapping("/top5Registrations")
     public ResponseEntity<DataResponse> top5registrations(){
         DataResponse response = new DataResponse();
         Pageable pageable = PageRequest.of(0, 5);

@@ -204,7 +204,6 @@ public class RegistrationController {
         }
     }
 
-
     @GetMapping("/getRegistrationById/{id}")
     public ResponseEntity<DataResponse> getRegistrationById(@RequestHeader("Authorization") String jwt,@PathVariable("id")long id){
         DataResponse response = new DataResponse();
