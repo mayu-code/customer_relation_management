@@ -77,10 +77,11 @@ public class AdminHandleController {
             if(form.getInstallmentsMonths()!=0){
                 double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
                 form.setInstallments(amount);
-            }
-            double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
+            }else{
+                double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
             form.setInstallments(amount);
-            form.setInstallmentsMonths(1);;
+            form.setInstallmentsMonths(1);
+            }
         }      
         try{
             this.registrationServiceImpl.updateRegistrationForm(form);
