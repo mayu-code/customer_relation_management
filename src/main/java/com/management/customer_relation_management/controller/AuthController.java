@@ -64,7 +64,7 @@ public class AuthController {
 
         Admin admin = new Admin();
         admin.setEmail(adminRegisterRequest.getEmail());
-        admin.setCantact(adminRegisterRequest.getCantact());
+        admin.setContact(adminRegisterRequest.getContact());
         admin.setName(adminRegisterRequest.getName());
         admin.setPassword(new BCryptPasswordEncoder().encode(adminRegisterRequest.getPassword()));
         admin.setRegistationDate(DateTimeFormatter.format(LocalDateTime.now()));
@@ -104,7 +104,7 @@ public class AuthController {
 
         Manager manager = new Manager();
         manager.setEmail(registerRequest.getEmail());
-        manager.setCantact(registerRequest.getCantact());
+        manager.setContact(registerRequest.getContact());
         manager.setName(registerRequest.getName());
         manager.setPassword(new BCryptPasswordEncoder().encode(registerRequest.getPassword()));
         manager.setRegistationDate(DateTimeFormatter.format(LocalDateTime.now()));

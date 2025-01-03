@@ -7,6 +7,6 @@ public class RegisterRequest {
 
     private String email;
     private String name;
-    private String cantact;
+    private String contact;
     private String password;
 }

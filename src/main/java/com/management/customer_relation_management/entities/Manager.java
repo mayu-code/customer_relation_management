@@ -30,7 +30,7 @@ public class Manager implements UserDetails {
     private UUID id;
     private String email;
     private String name;
-    private String cantact;
+    private String contact;
     private String password;
     private boolean approved = false ;
     private boolean active = false;
