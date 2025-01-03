@@ -71,8 +71,8 @@ public class AdminHandleController {
     public ResponseEntity<SuccessResponse> updateRegistration(@RequestBody UpdateAmount updateAmount){
         SuccessResponse response = new SuccessResponse();
         RegistrationForm form = this.registrationServiceImpl.getRegistrationFormById(updateAmount.getId());
-        if(form.getAmountPaid()!=updateAmount.getAmount()){
-            form.setAmountPaid((long)updateAmount.getAmount());
+        if(form.getAmountPaid()!=updateAmount.getAmountPaid()){
+            form.setAmountPaid((long)updateAmount.getAmountPaid());
 
             if(form.getInstallmentsMonths()!=0){
                 double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();

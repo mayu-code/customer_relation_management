@@ -6,5 +6,5 @@ import lombok.Data;
 @Data
 public class UpdateAmount {
     private long id;
-    private double amount;
+    private double amountPaid;
 }
