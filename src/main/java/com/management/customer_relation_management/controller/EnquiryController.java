@@ -84,12 +84,14 @@ public class EnquiryController {
 
         SuccessResponse response = new SuccessResponse();
         EnquiryForm updateEnquiry = this.EnquiryFormService.getEnquiryFormById(enquiryForm.getId());
-        EnquiryForm isPresentByEmail = this.EnquiryFormService.getEnquiryFormByEmail(enquiryForm.getEmail());
-        if(!(isPresentByEmail==null)){
+        if(!updateEnquiry.getEmail().equals(enquiryForm.getEmail())){
+            EnquiryForm isPresentByEmail = this.EnquiryFormService.getEnquiryFormByEmail(enquiryForm.getEmail());
+            if(!(isPresentByEmail==null)){
             response.setStatus(HttpStatus.ALREADY_REPORTED);
             response.setStatusCode(200);
             response.setMessage("Email already present");
             return ResponseEntity.of(Optional.of(response));
+        }
         }
         updateEnquiry.setBranch(enquiryForm.getBranch());
         updateEnquiry.setCollege(enquiryForm.getCollege());
@@ -97,15 +99,13 @@ public class EnquiryController {
         updateEnquiry.setEmail(enquiryForm.getEmail());
         updateEnquiry.setContact(enquiryForm.getContact());
         updateEnquiry.setName(enquiryForm.getName());
-        updateEnquiry.getCourses().removeAll(updateEnquiry.getCourses());
         EnquiryForm enquiryForm2 = new EnquiryForm();
-
         List<Course> courses = enquiryForm.getCourses();
 
         try{
             enquiryForm2 = this.EnquiryFormService.updateEnquiryForm(updateEnquiry);
+            this.courseSErvice.deleteCourses(enquiryForm.getId());
             for(Course course:courses){
-                System.out.println(course.toString());
                 this.courseSErvice.addEnquiryCourse(course, enquiryForm2);
             }
             response.setStatus(HttpStatus.ACCEPTED);

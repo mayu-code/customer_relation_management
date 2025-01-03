@@ -121,12 +121,14 @@ public class RegistrationController {
     public ResponseEntity<SuccessResponse> updateEnquiry(@RequestBody RegistrationForm registrationForm){
         SuccessResponse response = new SuccessResponse();
         RegistrationForm registrationForm2 = this.registrationService.getRegistrationFormById(registrationForm.getId());
-        RegistrationForm isRegistrationForm = this.registrationService.getreRegistrationFormByEmail(registrationForm.getEmail());
-        if(!(isRegistrationForm==null)){
+        if(!registrationForm2.getEmail().equals(registrationForm.getEmail())){
+            RegistrationForm isRegistrationForm = this.registrationService.getreRegistrationFormByEmail(registrationForm.getEmail());
+            if(!(isRegistrationForm==null)){
             response.setMessage("email already present");
             response.setStatus(HttpStatus.LOCKED);
             response.setStatusCode(423);
             return ResponseEntity.of(Optional.of(response));
+        }
         }
         if(registrationForm.getAmountPaid()!=registrationForm2.getAmountPaid()){
             response.setMessage("you don't have a permission to change the paid amount ");
