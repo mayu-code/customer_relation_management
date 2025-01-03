@@ -47,7 +47,7 @@ public interface EnquiryFormRepo extends JpaRepository<EnquiryForm,Long> {
     @Query("SELECT DISTINCT r.qualification FROM EnquiryForm r")
     List<String> findAllDistinctQualification();
 
-    @Query("SELECT e FROM EnquiryForm e WHERE r.manager =:manager ORDER BY e.enquiryDate DESC")
+    @Query("SELECT e FROM EnquiryForm e WHERE e.manager =:manager ORDER BY e.enquiryDate DESC")
     List<EnquiryForm> findTop5EnquiryForms(@Param("manager")Manager manager,Pageable pageable);
 
     @Query("SELECT e FROM EnquiryForm e ORDER BY e.enquiryDate DESC")
