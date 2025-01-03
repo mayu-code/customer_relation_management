@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.management.customer_relation_management.dto.UpdateAmount;
 import com.management.customer_relation_management.entities.GetCourse;
 import com.management.customer_relation_management.entities.RegistrationForm;
 import com.management.customer_relation_management.response.DataResponse;
@@ -67,11 +68,14 @@ public class AdminHandleController {
 
 
     @PostMapping("/updateRegistration")
-    public ResponseEntity<SuccessResponse> updateEnquiry(@RequestBody RegistrationForm registrationForm){
+    public ResponseEntity<SuccessResponse> updateRegistration(@RequestBody UpdateAmount updateAmount){
         SuccessResponse response = new SuccessResponse();
-        
-        
+        RegistrationForm form = this.registrationServiceImpl.getRegistrationFormById(updateAmount.getId());
+        if(form.getAmountPaid()!=updateAmount.getAmount()){
+            form.setAmountPaid((long)updateAmount.getAmount());
+        }      
         try{
+            this.registrationServiceImpl.updateRegistrationForm(form);
             response.setStatus(HttpStatus.CREATED);
             response.setStatusCode(200);
             response.setMessage("RegitrationFrom update Successfully !");
