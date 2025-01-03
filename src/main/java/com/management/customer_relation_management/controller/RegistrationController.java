@@ -130,11 +130,13 @@ public class RegistrationController {
             return ResponseEntity.of(Optional.of(response));
         }
         }
-        if(registrationForm.getAmountPaid()!=registrationForm2.getAmountPaid()){
-            response.setMessage("you don't have a permission to change the paid amount ");
-            response.setStatus(HttpStatus.LOCKED);
-            response.setStatusCode(423);
-            return ResponseEntity.of(Optional.of(response));
+        if(registrationForm2.getAmountPaid()!=registrationForm.getAmountPaid()){
+            if(registrationForm.getAmountPaid()!=registrationForm2.getAmountPaid()){
+                response.setMessage("you don't have a permission to change the paid amount ");
+                response.setStatus(HttpStatus.LOCKED);
+                response.setStatusCode(423);
+                return ResponseEntity.of(Optional.of(response));
+            }
         }
         if(registrationForm2.getInstallmentsMonths()!=registrationForm.getInstallmentsMonths()){
             registrationForm2.setInstallmentsMonths(registrationForm.getInstallmentsMonths());
