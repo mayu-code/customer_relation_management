@@ -117,6 +117,11 @@ public class RegistrationServiceImpl implements RegistrationService {
             return  this.registrationRepository.findFirst5Registrations(manager, pageable);
         }
 
+        @Override
+        public List<RegistrationForm> top5RegistrationForms(Pageable pageable) {
+            return this.registrationRepository.findFirst5Registrations(pageable);
+        }
+
 
         // @Override
         // public List<MonthWiseRegistration> getMonthWiseRegistration(LocalDate localDate) {

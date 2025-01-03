@@ -1,6 +1,7 @@
 package com.management.customer_relation_management.repository;
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -46,5 +47,9 @@ public interface EnquiryFormRepo extends JpaRepository<EnquiryForm,Long> {
     @Query("SELECT DISTINCT r.qualification FROM EnquiryForm r")
     List<String> findAllDistinctQualification();
 
-    List<EnquiryForm> findTop5EnquiryForms();
+    @Query("SELECT e FROM EnquiryForm e WHERE r.manager =:manager ORDER BY e.enquiryDate DESC")
+    List<EnquiryForm> findTop5EnquiryForms(@Param("manager")Manager manager,Pageable pageable);
+
+    @Query("SELECT e FROM EnquiryForm e ORDER BY e.enquiryDate DESC")
+    List<EnquiryForm> findTop5EnquiryForms(Pageable pageable);
 }

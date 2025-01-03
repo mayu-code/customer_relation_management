@@ -3,6 +3,7 @@ package com.management.customer_relation_management.service.serviceImpl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import com.management.customer_relation_management.entities.EnquiryForm;
@@ -102,5 +103,15 @@ public class EnquiryFormServiceImpl implements EnquiryFormService {
     @Override
     public List<EnquiryForm> getAllEnquiryFormsForAdmin() {
         return this.enquiryFormRepo.findAll();
+    }
+
+    @Override
+    public List<EnquiryForm> top5EnquiryForms(Manager manager, Pageable pageable) {
+        return this.enquiryFormRepo.findTop5EnquiryForms(manager, pageable);
+    }
+
+    @Override
+    public List<EnquiryForm> top5EnquiryForms(Pageable pageable) {
+        return this.enquiryFormRepo.findTop5EnquiryForms(pageable);
     }
 }

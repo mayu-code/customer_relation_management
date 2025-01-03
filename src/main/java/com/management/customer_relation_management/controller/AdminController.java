@@ -4,6 +4,8 @@ import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -230,6 +232,44 @@ public class AdminController {
             response.setStatusCode(200);
             response.setMessage("manager get succusfully !");
             response.setData(this.managerServiceImpl.getManagerById(id));
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/top5registrations")
+    public ResponseEntity<DataResponse> top5registrations(){
+        DataResponse response = new DataResponse();
+        Pageable pageable = PageRequest.of(0, 5);
+        try{
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("get top 5 registrations succusfully !");
+            response.setData(this.registrationServiceImpl.top5RegistrationForms(pageable));
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    @GetMapping("/top5Enquiries")
+    public ResponseEntity<DataResponse> top5Enquiries(){
+        DataResponse response = new DataResponse();
+        Pageable pageable = PageRequest.of(0, 5);
+        try{
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("get top 5 Enquiries succusfully !");
+            response.setData(this.enquiryFormServiceImpl.top5EnquiryForms(pageable));
             return ResponseEntity.of(Optional.of(response));
         }catch(Exception e){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);

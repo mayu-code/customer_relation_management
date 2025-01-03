@@ -2,6 +2,8 @@ package com.management.customer_relation_management.service.serviceInterface;
 
 import java.util.List;
 
+import org.springframework.data.domain.Pageable;
+
 import com.management.customer_relation_management.entities.EnquiryForm;
 import com.management.customer_relation_management.entities.Manager;
 
@@ -27,9 +29,11 @@ public interface EnquiryFormService {
     List<String> getAllDistinctQualification();
     List<String> getAllDistinctBranch();
 
+    List<EnquiryForm> top5EnquiryForms(Manager manager,Pageable pageable);
 
     // admin 
     List<EnquiryForm> getAllEnquiryFormsForAdmin();
+    List<EnquiryForm> top5EnquiryForms(Pageable pageable);
 } 
 
 

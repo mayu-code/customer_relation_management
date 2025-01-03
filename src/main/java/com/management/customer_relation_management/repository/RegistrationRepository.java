@@ -59,6 +59,10 @@ public interface RegistrationRepository extends JpaRepository<RegistrationForm, 
     @Query("SELECT r FROM RegistrationForm r WHERE CAST(r.deuDate AS date) <= CURRENT_DATE ORDER BY r.deuDate ASC")
     List<RegistrationForm> findAllDueEntries();
 
+    @Query("SELECT r FROM RegistrationForm r ORDER BY r.registrationDate DESC")
+    List<RegistrationForm> findFirst5Registrations(Pageable pageable);
+
+
 
 
 

@@ -35,6 +35,7 @@ public interface RegistrationService {
     List<String> getAllDistinctQualification();
     List<String> getAllDistinctBranch();
     List<RegistrationForm> top5RegistrationForms(Manager manager,Pageable pageable);
+    List<RegistrationForm> top5RegistrationForms(Pageable pageable);
 
     // for admin 
     public List<RegistrationForm> getAllFormsForAdmin();

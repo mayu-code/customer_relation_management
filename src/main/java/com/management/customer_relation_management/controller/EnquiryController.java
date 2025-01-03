@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
@@ -339,6 +341,27 @@ public class EnquiryController {
             response.setStatus(HttpStatus.OK);
             response.setStatusCode(200);
             response.setMessage("Enquiry forms get successfully !");
+            return ResponseEntity.of(Optional.of(response));
+        }catch(Exception e){
+            response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
+            response.setStatusCode(505);
+            response.setMessage("something went wrong !");
+            response.setData(null);
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+
+    @GetMapping("/getTop5EnquiryForm")
+    public ResponseEntity<DataResponse> top5EnquiryForm(@RequestHeader("Authorization")String jwt){
+        DataResponse response = new DataResponse();
+        Manager manager = managerServiceImpl.getManagerByJwt(jwt);
+        Pageable pageable = PageRequest.of(0, 5);
+        try{
+            response.setData(this.EnquiryFormService.top5EnquiryForms(manager, pageable));
+            response.setStatus(HttpStatus.OK);
+            response.setStatusCode(200);
+            response.setMessage("top 5 enquiry form get successfully !");
             return ResponseEntity.of(Optional.of(response));
         }catch(Exception e){
             response.setStatus(HttpStatus.INTERNAL_SERVER_ERROR);
