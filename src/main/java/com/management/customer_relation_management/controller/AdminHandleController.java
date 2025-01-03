@@ -78,7 +78,7 @@ public class AdminHandleController {
                 double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
                 form.setInstallments(amount);
             }else{
-                double amount = (form.getTotalFees()-form.getAmountPaid())/form.getInstallmentsMonths();
+                double amount = (form.getTotalFees()-form.getAmountPaid());
             form.setInstallments(amount);
             form.setInstallmentsMonths(1);
             }
