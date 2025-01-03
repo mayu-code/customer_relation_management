@@ -129,23 +129,8 @@ public class RegistrationController {
             response.setStatusCode(423);
             return ResponseEntity.of(Optional.of(response));
         }
-        }
-        if(registrationForm2.getAmountPaid()!=registrationForm.getAmountPaid()){
-            if(registrationForm.getAmountPaid()!=registrationForm2.getAmountPaid()){
-                response.setMessage("you don't have a permission to change the paid amount ");
-                response.setStatus(HttpStatus.LOCKED);
-                response.setStatusCode(423);
-                return ResponseEntity.of(Optional.of(response));
-            }
-        }
-       
-        
+        }    
         try{
-            if(registrationForm2.getInstallmentsMonths()!=registrationForm.getInstallmentsMonths() && registrationForm2.getInstallmentsMonths()!=0){
-                registrationForm2.setInstallmentsMonths(registrationForm.getInstallmentsMonths());
-                double installmentAmount = (registrationForm2.getTotalFees()-registrationForm2.getAmountPaid())/registrationForm2.getInstallmentsMonths();
-                registrationForm2.setInstallments(installmentAmount);
-            }
             registrationForm2.setBranch(registrationForm.getBranch());
             registrationForm2.setCollege(registrationForm.getCollege());
             registrationForm2.setContact(registrationForm.getContact());
