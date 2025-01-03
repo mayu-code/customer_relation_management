@@ -33,5 +33,11 @@ public class CourseServiceImpl implements CourseService{
     public List<String> getDistinctCourse() {
         return this.courseRepo.findAllDistinctCourses();
     }
+
+    public void deleteCourses(long id){
+        this.courseRepo.deleteByEnquiryFormId(id);
+        return;
+    }
+
     
 }
