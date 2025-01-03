@@ -138,7 +138,7 @@ public class RegistrationController {
                 return ResponseEntity.of(Optional.of(response));
             }
         }
-        if(registrationForm2.getInstallmentsMonths()!=registrationForm.getInstallmentsMonths()){
+        if(registrationForm2.getInstallmentsMonths()!=registrationForm.getInstallmentsMonths() && registrationForm2.getInstallmentsMonths()!=0){
             registrationForm2.setInstallmentsMonths(registrationForm.getInstallmentsMonths());
             double installmentAmount = (registrationForm2.getTotalFees()-registrationForm2.getAmountPaid())/registrationForm2.getInstallmentsMonths();
             registrationForm2.setInstallments(installmentAmount);
