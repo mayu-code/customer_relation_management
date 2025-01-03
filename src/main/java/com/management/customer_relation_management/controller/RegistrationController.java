@@ -138,18 +138,19 @@ public class RegistrationController {
                 return ResponseEntity.of(Optional.of(response));
             }
         }
-        if(registrationForm2.getInstallmentsMonths()!=registrationForm.getInstallmentsMonths() && registrationForm2.getInstallmentsMonths()!=0){
-            registrationForm2.setInstallmentsMonths(registrationForm.getInstallmentsMonths());
-            double installmentAmount = (registrationForm2.getTotalFees()-registrationForm2.getAmountPaid())/registrationForm2.getInstallmentsMonths();
-            registrationForm2.setInstallments(installmentAmount);
-        }
-        registrationForm2.setBranch(registrationForm.getBranch());
-        registrationForm2.setCollege(registrationForm.getCollege());
-        registrationForm2.setContact(registrationForm.getContact());
-        registrationForm2.setEmail(registrationForm.getEmail());
-        registrationForm2.setQualification(registrationForm.getQualification());
+       
         
         try{
+            if(registrationForm2.getInstallmentsMonths()!=registrationForm.getInstallmentsMonths() && registrationForm2.getInstallmentsMonths()!=0){
+                registrationForm2.setInstallmentsMonths(registrationForm.getInstallmentsMonths());
+                double installmentAmount = (registrationForm2.getTotalFees()-registrationForm2.getAmountPaid())/registrationForm2.getInstallmentsMonths();
+                registrationForm2.setInstallments(installmentAmount);
+            }
+            registrationForm2.setBranch(registrationForm.getBranch());
+            registrationForm2.setCollege(registrationForm.getCollege());
+            registrationForm2.setContact(registrationForm.getContact());
+            registrationForm2.setEmail(registrationForm.getEmail());
+            registrationForm2.setQualification(registrationForm.getQualification());
             this.registrationService.updateRegistrationForm(registrationForm2);
             response.setStatus(HttpStatus.CREATED);
             response.setStatusCode(200);
