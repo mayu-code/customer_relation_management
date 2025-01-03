@@ -61,7 +61,7 @@ public class RegistrationController {
 
     @PostMapping("/addRegistration")
     public ResponseEntity<DataResponse> addEnquiry(@RequestHeader("Authorization") String jwt,
-                                                    @RequestPart("image") MultipartFile image,
+                                                    @RequestPart(value = "image", required = false) MultipartFile image,
                                                     @RequestPart("registrationForm") RegistrationForm registrationForm){
         Manager manager = this.managerService.getManagerByJwt(jwt);
         RegistrationForm registrationForm2 = new RegistrationForm();
