@@ -118,7 +118,7 @@ public class RegistrationController {
     }
 
     @PostMapping("/updateRegistration")
-    public ResponseEntity<SuccessResponse> updateEnquiry(@RequestBody RegistrationForm registrationForm){
+    public ResponseEntity<SuccessResponse> updateRegistration(@RequestBody RegistrationForm registrationForm){
         SuccessResponse response = new SuccessResponse();
         RegistrationForm registrationForm2 = this.registrationService.getRegistrationFormById(registrationForm.getId());
         if(!registrationForm2.getEmail().equals(registrationForm.getEmail())){
@@ -203,7 +203,6 @@ public class RegistrationController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
         }
     }
-
 
     @GetMapping("/getRegistrationById/{id}")
     public ResponseEntity<DataResponse> getRegistrationById(@RequestHeader("Authorization") String jwt,@PathVariable("id")long id){
