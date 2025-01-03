@@ -82,7 +82,12 @@ public class AdminHandleController {
             form.setInstallments(amount);
             form.setInstallmentsMonths(1);
             }
-        }      
+        }
+        if(form.getAmountPaid()==updateAmount.getAmountPaid()) {
+            form.setInstallments(0);;
+            form.setInstallmentsMonths(0);
+            form.setDeuDate("completed");
+        }     
         try{
             this.registrationServiceImpl.updateRegistrationForm(form);
             response.setStatus(HttpStatus.CREATED);
